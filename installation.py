@@ -2,77 +2,75 @@ import os
 import time
 import datetime
 import sys
-import re
-import json
-import requests
+import platform
+import socket
+import urllib.request
+import urllib.error
 
 
 def main():
-    start = time.perf_counter()  # Start counter time
-    packages_install = input('Plz enter the Python package you want to install: ')
+    start = time.perf_counter()
+    packages_install = input('Please enter the Python package you want to install: ')
     print('The Python package you want to install is: ', packages_install)
     check_packages(packages_install)
     install_packages(packages_install)
-    end = time.perf_counter()  # End counter time
-    runtime = end - start  # Running time =  End counter time - Start counter time
+    end = time.perf_counter()
+    runtime = end - start
     counter_process(runtime)
 
 
 def check_packages(packages_install):
+    operation_system = platform.system()
     print("Start to check whether the Python package is installed")
-    command_result = os.system("pip list" + " | findstr " + packages_install)
-    if command_result == packages_install: # Not full completed function
-        print(packages_install + " has been installed on this host")
+    if (operation_system == 'Windows'):
+        command_result = os.system('pip list | findstr ' + packages_install + '> ' + ' checkversion.txt')
+        print('Dear guests your operation system is: ' + operation_system)
+    elif (operation_system == 'Linux'):
+        command_result = os.system('pip list | grep ' + packages_install + '> ' + ' checkversion.txt')
+        print('Dear guests your operation system is: ' + operation_system)
+
+    # with open('checkversion.txt','w') as file:
+    #     command_result = file.read()
+
+    if command_result == packages_install:
+        print(packages_install + " has been installed on this computer")
         sys.exit()
     else:
         print("Start to setup " + packages_install + " you want to installed in this laptop")
-        print("------------------------------------------------------------------------------------------------------------------------------")
     username = os.getlogin()
     with open("packages_log.txt", "w") as file:
         current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        file.write(username + " downloaded the " + packages_install + " at Current time: " + current_time)
+        file.write(username + " downloaded the " + packages_install + " downloaded time: " + current_time)
 
 
 def install_packages(packages_install):
-    # mirrors_pool Python data type:dictionary
-    # You can change the Proxypool key and value by your own decision
-    # mirrors_pool = {
-    #     'tsinghua': {
-    #         'domain': 'pypi.tuna.tsinghua.edu.cn',
-    #         'tsinghua_link': 'https://pypi.tuna.tsinghua.edu.cn/simple'
-    #     },
-    #     'douban': {
-    #         'domain': 'pypi.douban.com',
-    #         'douban_link': 'http://pypi.douban.com/simple/'
-    #     },
-    #     'aliyun': {
-    #         'domain': 'mirrors.aliyun.com',
-    #         'aliyun_link': 'http://mirrors.aliyun.com/pypi/simple/'
-    #     }
-    #     # '': {
-    #     #     'domain': ''
-    #     #     '_link': ''
-    #     # }
-    # }
-
-    # backup dictionary: according to the requirement to change
     mirrors_pool = {"pypi.tuna.tsinghua.edu.cn": "https://pypi.tuna.tsinghua.edu.cn/simple",
                     "pypi.douban.com": "http://pypi.douban.com/simple/",
                     "mirrors.aliyun.com": "http://mirrors.aliyun.com/pypi/simple/"}
 
-
-    with open("mirrors_links.txt","w") as file2:
+    with open("mirrors_links.txt", "w") as file2:
         file2.write(str(mirrors_pool))
         file2.close()
 
-
-    # if
-    #     os.system('pip install -i ' + packages_install + mirrors_pool["pypi.tuna.tsinghua.edu.cn"] + ' --trusted-host ' )
-    # elif
-    #     os.system('pip install -i ' + packages_install + mirrors_pool["link1"] + ' --trusted-host ' )
-    # elif
-    #     os.system('pip install -i ' + packages_install + mirrors_pool["link1"] + ' --trusted-host ' )
-
+    # CDing the functions will more powerfule.Use the beautiful Algorithm to make the programe more wonderful.Learn to use dictionary.
+    try:
+        pip_install1 = os.system('pip install ' + packages_install + " -i https://pypi.tuna.tsinghua.edu.cn/simple" + ' --trusted-host ' + " pypi.tuna.tsinghua.edu.cn")
+        response_tsing = urllib.request.urlopen('https://pypi.tuna.tsinghua.edu.cn', timeout=5)
+    except urllib.error.URLError as e:
+        if isinstance(e.reason, socket.timeout):
+            print('tsinghua requested timeout')
+    try:
+        pip_install2 = os.popen('pip install ' + packages_install + " -i http://pypi.douban.com/simple/" + ' --trusted-host ' + " pypi.douban.com")
+        response_douban = urllib.request.urlopen('http://pypi.douban.com', timeout=20)
+    except urllib.error.URLError as e1:
+        if isinstance(e1.reason, socket.timeout):
+            print('douban requested timeout')
+    try:
+        pip_install3 = os.system('pip install ' + packages_install + " -i http://mirrors.aliyun.com/pypi/simple/" + ' --trusted-host ' + " mirrors.aliyun.com")
+        response_aliyun = urllib.request.urlopen('http://mirrors.aliyun.com', timeout=15)
+    except urllib.error.URLError as e2:
+        if isinstance(e2.reason, socket.timeout):
+            print('aliyun requested timeout')
 
 
 def counter_process(runtime):
