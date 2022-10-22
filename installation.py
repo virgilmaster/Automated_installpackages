@@ -3,10 +3,13 @@ import time
 import datetime
 import sys
 import platform
-import socket
-import urllib.request
-import urllib.error
+# import socket
+# import urllib.request
+# import urllib.error
+# import jmespath
 
+
+# Class
 
 def main():
     start = time.perf_counter()
@@ -35,7 +38,7 @@ def check_packages(packages_install):
     if command_result == packages_install:
         print(packages_install + " has been installed on this computer")
         sys.exit()
-    else:
+    elif command_result != packages_install:
         print("Start to setup " + packages_install + " you want to installed in this laptop")
     username = os.getlogin()
     with open("packages_log.txt", "w") as file:
@@ -44,33 +47,42 @@ def check_packages(packages_install):
 
 
 def install_packages(packages_install):
-    mirrors_pool = {"pypi.tuna.tsinghua.edu.cn": "https://pypi.tuna.tsinghua.edu.cn/simple",
-                    "pypi.douban.com": "http://pypi.douban.com/simple/",
-                    "mirrors.aliyun.com": "http://mirrors.aliyun.com/pypi/simple/"}
+    mirrors_pool = {"pypi.tuna.tsinghua.edu.cn": "https://pypi.tuna.tsinghua.edu.cn/simple","pypi.douban.com": "http://pypi.douban.com/simple/","mirrors.aliyun.com": "http://mirrors.aliyun.com/pypi/simple/"}
 
     with open("mirrors_links.txt", "w") as file2:
         file2.write(str(mirrors_pool))
         file2.close()
 
-    # CDing the functions will more powerfule.Use the beautiful Algorithm to make the programe more wonderful.Learn to use dictionary.
-    try:
-        pip_install1 = os.system('pip install ' + packages_install + " -i https://pypi.tuna.tsinghua.edu.cn/simple" + ' --trusted-host ' + " pypi.tuna.tsinghua.edu.cn")
-        response_tsing = urllib.request.urlopen('https://pypi.tuna.tsinghua.edu.cn', timeout=5)
-    except urllib.error.URLError as e:
-        if isinstance(e.reason, socket.timeout):
-            print('tsinghua requested timeout')
-    try:
-        pip_install2 = os.popen('pip install ' + packages_install + " -i http://pypi.douban.com/simple/" + ' --trusted-host ' + " pypi.douban.com")
-        response_douban = urllib.request.urlopen('http://pypi.douban.com', timeout=20)
-    except urllib.error.URLError as e1:
-        if isinstance(e1.reason, socket.timeout):
-            print('douban requested timeout')
-    try:
-        pip_install3 = os.system('pip install ' + packages_install + " -i http://mirrors.aliyun.com/pypi/simple/" + ' --trusted-host ' + " mirrors.aliyun.com")
-        response_aliyun = urllib.request.urlopen('http://mirrors.aliyun.com', timeout=15)
-    except urllib.error.URLError as e2:
-        if isinstance(e2.reason, socket.timeout):
-            print('aliyun requested timeout')
+    # 打印mirrors_pool 
+    for key_example in mirrors_pool():
+        print(key_example, mirrors_pool[key_example])
+
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    # CDing the functions will more powerful.Use the beautiful Algorithm to make the  program more wonderful.Learn to use dictionary.
+    # time_out = ??? #
+    # try:
+    #     pip_install1 = os.system('pip install ' + packages_install + " -i https://pypi.tuna.tsinghua.edu.cn/simple" + ' --trusted-host ' + " pypi.tuna.tsinghua.edu.cn")
+    #     response_tsing = urllib.request.urlopen('https://pypi.tuna.tsinghua.edu.cn', timeout=5)
+    # except urllib.error.URLError as e:
+        # if isinstance(e.reason, socket.timeout) == time_out:   # ()
+        #     print('tsinghua requested timeout')
+        #     # break
+        #     try:
+        #         pip_install2 = os.popen('pip install ' + packages_install + " -i http://pypi.douban.com/simple/" + ' --trusted-host ' + " pypi.douban.com")
+        #         print('try to download the packages from' + mirrors_pool[])
+    # try:
+    #     pip_install2 = os.popen('pip install ' + packages_install + " -i http://pypi.douban.com/simple/" + ' --trusted-host ' + " pypi.douban.com")
+    #     response_douban = urllib.request.urlopen('http://pypi.douban.com', timeout=20)
+    # except urllib.error.URLError as e1:
+    #     if isinstance(e1.reason, socket.timeout):
+    #         print('douban requested timeout')
+    # try:
+    #     pip_install3 = os.system('pip install ' + packages_install + " -i http://mirrors.aliyun.com/pypi/simple/" + ' --trusted-host ' + " mirrors.aliyun.com")
+    #     response_aliyun = urllib.request.urlopen('http://mirrors.aliyun.com', timeout=15)
+    # except urllib.error.URLError as e2:
+    #     if isinstance(e2.reason, socket.timeout):
+    #         print('aliyun requested timeout')
 
 
 def counter_process(runtime):
