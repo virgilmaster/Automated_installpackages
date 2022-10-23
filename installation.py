@@ -8,57 +8,58 @@ import urllib.request
 import urllib.error
 
 
-
 # Class
 
 def main():
     start = time.perf_counter()
     # This function can read the requirement.txt by readline and to install the correct version of packages
-    # read_requirement = 
+    # read_requirement =
     packages_install = input('Please enter the Python package you want to install: ')
     print('The Python package you want to install is: ', packages_install)
     check_packages(packages_install)
     install_packages(packages_install)
-    end = time.perf_counter()  
-    runtime = end - start  
+    end = time.perf_counter()
+    runtime = end - start
     counter_process(runtime)
-
-
 
 
 def check_packages(packages_install):
     operation_system = platform.system()
     print("Start to check whether the Python package is installed")
-    if(operation_system == 'Windows'):
+    if (operation_system == 'Windows'):
         command_result = os.system('pip list | findstr ' + packages_install + '> ' + ' checkversion.txt')
-        print('Dear guests your operation system is: ' + operation_system +  'The ' + packages_install + ' in you laptop is version:')
-    elif(operation_system == 'Linux'):
+        username = os.getlogin()
+        print('Dear guests your operation system is: ' + operation_system + 'The ' + packages_install + ' in you laptop is version:')
+
+    elif (operation_system == 'Linux'):
         command_result = os.system('pip list | grep ' + packages_install + '> ' + ' checkversion.txt')
-        print('Dear guests your operation system is: ' + operation_system + 'The ' + packages_install + ' in you laptop is version:' )
+        username = os.system('whoami')
+        print('Dear guests your operation system is: ' + operation_system + 'The ' + packages_install + ' in you laptop is version:')
 
     # with open('checkversion.txt','w') as file:
     #     command_result = file.read()
 
-    if command_result == packages_install: 
+    if command_result == packages_install:
         print(packages_install + " has been installed on this computer")
         sys.exit()
     else:
         print("Start to setup " + packages_install + " you want to installed in this laptop")
 
-    username = os.system('whoami')
+
     if os.path.exists("packages_log.txt") == True:
         with open("packages_log.txt", "w") as file:
             current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            os.system('echo ' + str(username) + "downloaded the " + packages_install + " downloaded time: " + current_time + ">" + " packages_log.txt")
             file.write(str(username) + " downloaded the " + packages_install + " downloaded time: " + current_time)
     else:
-        if(operation_system == 'Windows'):
-            make_logfile = os.system('New-Item -type file packages_log.txt')
-        elif(operation_system == 'Linux'):
-            make_logfile2 = os.system('touch packages_log.txt')
-            with open("packages_log.txt", "w") as file:
+        if (operation_system == 'Windows'):
+            with open("packages_log.txt", "w") as logfile:
                 current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                file.write(str(username) + " downloaded the " + packages_install + " downloaded time: " + current_time)
+                logfile.write(str(username) + " downloaded the " + packages_install + " downloaded time: " + current_time)
+
+        elif (operation_system == 'Linux'):
+            with open("packages_log.txt", "w") as logfile:
+                current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                logfile.write(str(username) + " downloaded the " + packages_install + " downloaded time: " + current_time)
 
 
 def install_packages(packages_install):
@@ -67,11 +68,9 @@ def install_packages(packages_install):
                     "mirrors.aliyun.com": "http://mirrors.aliyun.com/pypi/simple/"}
 
     # if os.path not ex:
-    with open("mirrors_links.txt","w") as file2:
-        file2.write(str(mirrors_pool))
-        file2.close()
-
-
+    with open("mirrors_links.txt", "w") as mirrorsfile:
+        mirrorsfile.write(str(mirrors_pool))
+        mirrorsfile.close()
 
     # CDing the functions will more powerfule.Use the beautiful Algorithm to make the programe more wonderful.Learn to use dictionary.
     # try:
@@ -92,8 +91,6 @@ def install_packages(packages_install):
     # except urllib.error.URLError as e2:
     #     if isinstance(e2.reason, socket.timeout):
     #         print('aliyun requested timeout')
-  
-
 
 
 def counter_process(runtime):
@@ -109,8 +106,6 @@ def counter_process(runtime):
     print("\n" + "All the job is done,lucky so much".center(scale // 2, "-"))
 
 
-
 main()
-
 
 
