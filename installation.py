@@ -29,12 +29,12 @@ def check_packages(packages_install):
     if (operation_system == 'Windows'):
         command_result = os.system('pip list | findstr ' + packages_install + '> ' + ' checkversion.txt')
         username = os.getlogin()
-        print('Dear guests your operation system is: ' + operation_system + 'The ' + packages_install + ' in you laptop is version:')
+        print('Dear guests your operation system is: ' + operation_system + ' The ' + packages_install + ' in you laptop is version:')
 
     elif (operation_system == 'Linux'):
         command_result = os.system('pip list | grep ' + packages_install + '> ' + ' checkversion.txt')
         username = os.system('whoami')
-        print('Dear guests your operation system is: ' + operation_system + 'The ' + packages_install + ' in you laptop is version:')
+        print('Dear guests your operation system is: ' + operation_system + ' The ' + packages_install + ' in you laptop is version:')
 
     # with open('checkversion.txt','w') as file:
     #     command_result = file.read()
@@ -62,35 +62,37 @@ def check_packages(packages_install):
                 logfile.write(str(username) + " downloaded the " + packages_install + " downloaded time: " + current_time)
 
 
+# Addtional function to add more link pools in the dictionary.
 def install_packages(packages_install):
     mirrors_pool = {"pypi.tuna.tsinghua.edu.cn": "https://pypi.tuna.tsinghua.edu.cn/simple",
                     "pypi.douban.com": "http://pypi.douban.com/simple/",
                     "mirrors.aliyun.com": "http://mirrors.aliyun.com/pypi/simple/"}
 
-    # if os.path not ex:
+    
     with open("mirrors_links.txt", "w") as mirrorsfile:
         mirrorsfile.write(str(mirrors_pool))
         mirrorsfile.close()
 
     # CDing the functions will more powerfule.Use the beautiful Algorithm to make the programe more wonderful.Learn to use dictionary.
-    # try:
-    #     #pip_install = os.system('pip install ' + packages_install + " -i https://pypi.tuna.tsinghua.edu.cn/simple" + ' --trusted-host ' + " pypi.tuna.tsinghua.edu.cn")
-    #     response_tsing = urllib.request.urlopen('https://pypi.tuna.tsinghua.edu.cn',timeout=5)
-    # except urllib.error.URLError as e:
-    #     if isinstance(e.reason, socket.timeout):
-    #         print('tsinghua requested timeout')
-    # try:
-    #     pip_install = os.popen('pip install ' + packages_install + " -i http://pypi.douban.com/simple/" + ' --trusted-host ' + " pypi.douban.com")
-    #     response_douban = urllib.request.urlopen('http://pypi.douban.com',timeout=20)
-    # except urllib.error.URLError as e1:
-    #     if isinstance(e1.reason, socket.timeout):
-    #         print('douban requested timeout')
-    # try:
-    #     pip_install = os.system('pip install ' + packages_install + " -i http://mirrors.aliyun.com/pypi/simple/" + ' --trusted-host ' + " mirrors.aliyun.com")
-    #     response_aliyun = urllib.request.urlopen('http://mirrors.aliyun.com',timeout=15)
-    # except urllib.error.URLError as e2:
-    #     if isinstance(e2.reason, socket.timeout):
-    #         print('aliyun requested timeout')
+    # 2022-10-24: Today's aim is to slove this function.
+    try:
+        pip_install = os.system('pip install ' + packages_install + " -i https://pypi.tuna.tsinghua.edu.cn/simple" + ' --trusted-host ' + " pypi.tuna.tsinghua.edu.cn")
+        response_tsing = urllib.request.urlopen('https://pypi.tuna.tsinghua.edu.cn',timeout=5)
+    except urllib.error.URLError as e:
+        if isinstance(e.reason, socket.timeout):
+            print('tsinghua requested timeout')
+    try:
+        pip_install = os.popen('pip install ' + packages_install + " -i http://pypi.douban.com/simple/" + ' --trusted-host ' + " pypi.douban.com")
+        response_douban = urllib.request.urlopen('http://pypi.douban.com',timeout=20)
+    except urllib.error.URLError as e1:
+        if isinstance(e1.reason, socket.timeout):
+            print('douban requested timeout')
+    try:
+        pip_install = os.popen('pip install ' + packages_install + " -i http://mirrors.aliyun.com/pypi/simple/" + ' --trusted-host ' + " mirrors.aliyun.com")
+        response_aliyun = urllib.request.urlopen('http://mirrors.aliyun.com',timeout=15)
+    except urllib.error.URLError as e2:
+        if isinstance(e2.reason, socket.timeout):
+            print('aliyun requested timeout')
 
 
 def counter_process(runtime):
