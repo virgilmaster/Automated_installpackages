@@ -37,7 +37,6 @@ def check_packages():
         converted_result = package_result.split(",")[0]
         package_names = package_result.split("==")[0]
         package_version = package_result.split("==")[1]
-        print(converted_result)
 
     aliyun_data = search("aliyun",mirror_pools)
     final_ali = str(aliyun_data)
