@@ -1,0 +1,5 @@
+loguru==0.5.3
+shell==1.0.1
+prettytable==3.0.0
+pandas==1.4.2
+watchdog==2.1.6
