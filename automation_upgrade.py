@@ -7,8 +7,9 @@
 
 import os
 from string import punctuation
+import string
 from struct import pack
-import re
+import re,string
 import time
 import datetime
 import sys
@@ -35,7 +36,7 @@ def read_requirements(file_name):
     return pack_information
 
 
-def check_packages(operation_system):
+def check_packages():
     print('Dear guests,begin to check your system: ')
     counter1 = 0
     while counter1 < 6:
@@ -47,29 +48,35 @@ def check_packages(operation_system):
     print('WOW, your system is: ' + operation_system + '!!!')
     print("Start to check whether the python packages is intalled or not?")
     print("You have installed the following installation package: ")
-    if operation_system == "Windows":
-        pack_num = os.popen('type requirements.txt | find /v /c""')
-        output_num = pack_num.read()
-        pack_num.close()
-    elif operation_system == "Linux":
-        pack_num = os.popen('cat requirements.txt | wc -l"')
-        output_num = pack_num.read()
-        pack_num.close()
 
-def handle_packages(output_num,pack_information,operation_system): 
+
+def handle_packages(output_num,pack_information): 
     numbers = int(output_num) 
     for i in (0,numbers-4,numbers-3,numbers-2,numbers-1):
         package_detail = str(pack_information[i])
         package_result = package_detail.split("'")[1].split("'")[0]
         package_names = package_result.split("==")[0]  # The package's names
         package_version = package_result.split("==")[1] # The packages's version
-
+        final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
+        print(final_version)
+        
         if operation_system == "Windows":
             packages_installed = os.popen("pip list | findstr " + package_names)
             result_installed = packages_installed.read()
             packages_installed.close()
-            print(result_installed)
-            print(type(result_installed))
+            installed_version = result_installed.split(" ")[-1]
+            final_installed = re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)
+            print(final_installed)
+            while final_installed == final_version:
+                print("Your " + package_names + " 's version is correct have no necessary to install")
+            else:
+                print("Your " + package_names + " 's version is not correct")
+
+        elif operation_system == "Linux":
+            packages_installed = os.popen("pip list | grep " + package_names)
+            result_installed = packages_installed.read()
+            packages_installed.close()
+
 
     
 if __name__ == "__main__":
@@ -78,10 +85,16 @@ if __name__ == "__main__":
     read_requirements(file_name)
     operation_system = platform.system()
     pack_information = read_requirements(file_name)
-    check_packages(operation_system)
-    pack_num = os.popen('type requirements.txt | find /v /c""')
-    output_num = pack_num.read()
-    handle_packages(output_num,pack_information,operation_system)
+    check_packages()
+    if operation_system == "Windows":
+        pack_num = os.popen('type requirements.txt | find /v /c""')
+        output_num = pack_num.read()
+        pack_num.close()
+    elif operation_system == "Linux":
+        pack_num = os.popen('cat requirements.txt | wc -l"')
+        output_num = pack_num.read()
+        pack_num.close()
+    handle_packages(output_num,pack_information)
     #package_detail = str(pack_information[i])
     #convert_detail(package_detail)
     # end_counter = time.perf_counter()
