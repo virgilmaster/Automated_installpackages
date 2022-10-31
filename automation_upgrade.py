@@ -2,7 +2,7 @@
 # Functions: To download the python packages from internet automactically
 # Email-address: 691267837@qq.com
 # Date: 2022/10/31
-# Version: 0.0.9
+# Version: 0.1.0
 # Fundation: Virgil@copyright.org
 
 import os
@@ -41,7 +41,7 @@ def check_packages():
     counter1 = 0
     while counter1 < 6:
         time.sleep(1)
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
         counter1 += 1
     time.sleep(3)
     print('Welcome to use my scripts,hope to help you')
@@ -51,33 +51,16 @@ def check_packages():
 
 
 def handle_packages(output_num,pack_information):
-    # mirror_pools = {"pypi.tuna.tsinghua.edu.cn": "https://pypi.tuna.tsinghua.edu.cn/simple",
-    #                 "pypi.douban.com": "http://pypi.douban.com/simple/",
-    #                 "mirrors.aliyun.com": "http://mirrors.aliyun.com/pypi/simple/",
-    #                 "pypi.mirrors.ustc.edu.cn":"https://pypi.mirrors.ustc.edu.cn/simple/"}
-    
-    mirror_pools = {"aliyun": [
-    {"domain": "mirrors.aliyun.com","link":"http://mirrors.aliyun.com/pypi/simple/"}],
-    "ustc":[
-    {"domain":"pypi.mirrors.ustc.edu.cn","link": "https://pypi.mirrors.ustc.edu.cn/simple/"}],
-    "douban":[
-    {"domain":"pypi.douban.com","link": "http://pypi.douban.com/simple/"}],
-    "tsinghua":[
-    {"domain":"pypi.tuna.tsinghua.edu.cn","link": "https://pypi.tuna.tsinghua.edu.cn/simple/"}]
-    }
-    
-    with open("Mirrors_links.json","w") as mirrors_file:
-        mirrors_file.write(str(mirror_pools))
-        mirrors_file.close()
-
     numbers = int(output_num) 
-    for i in (0,numbers-4,numbers-3,numbers-2,numbers-1):
+    # for i in (0,numbers-4,numbers-3,numbers-2,numbers-1):
+    for i in range(numbers):
         package_detail = str(pack_information[i])
         package_result = package_detail.split("'")[1].split("'")[0]
         converted_result = package_result.split(",")[0]
-        print(converted_result)
+
         package_names = package_result.split("==")[0]  
         package_version = package_result.split("==")[1]
+
 
         with open("Download_record.txt","w") as donwload_file: # Not wonderful functions
             current_time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
@@ -133,9 +116,6 @@ def counter_process(runtime):
         time.sleep(0.1)
     print("\n" + "All the job is done,lucky so much".center(scale // 2, "-"))
 
-    
-
-
 
 if __name__ == "__main__":
     start_counter = time.perf_counter()
@@ -157,8 +137,6 @@ if __name__ == "__main__":
         command_username.close()
         pack_num.close()
     handle_packages(output_num,pack_information)
-
-
     end_counter = time.perf_counter()
     runtime = end_counter - start_counter
     counter_process(runtime)
