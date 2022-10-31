@@ -2,8 +2,9 @@
 # Functions: To download the python packages from internet automactically
 # Email-address: 691267837@qq.com
 # Date: 2022/10/31
-# Version: 0.0.7
+# Version: 0.0.8
 # Fundation: Virgil@copyright.org
+# Tip: There are some bugs in using on linux and windows operation system.There will be bug fixing as soon as possible.
 
 import os
 import re,string
@@ -35,7 +36,7 @@ def check_packages():
     counter1 = 0
     while counter1 < 6:
         time.sleep(1)
-        print('=======================================================================================================================================')
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
         counter1 += 1
     time.sleep(3)
     print('Welcome to use my scripts,hope to help you')
@@ -84,9 +85,9 @@ def handle_packages(output_num,pack_information):
                 sys.exit
             else:
                 print("Your " + package_names + "'s version is not correct")
-                os.system("echo " + "powershell " + ">" + "launch_powershell.bat")
-                #os.system("pip install " + converted_result + " -i http://pypi.douban.com/simple/" + " --trusted-host " + "pypi.douban.com")
-                
+                #os.system("echo " + "powershell " + ">" + "launch_powershell.bat")
+                os.system("python Downloading.py")
+
         elif operation_system == "Linux":
             packages_installed = os.popen("pip list | grep " + package_names)
             result_installed = packages_installed.read()
