@@ -5,5 +5,5 @@ Use the scripts can help you to install the correct version of the python packag
 # Self introduction:
 I am a beginner of Python and a self learner.
 To install the python environment more convenitent.Help to improve the work efficiency.
-#Inspirational words
+# Inspirational words
 Diligence makes genius
