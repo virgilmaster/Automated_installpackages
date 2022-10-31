@@ -68,16 +68,31 @@ def check_packages(operation_system,pack_information):
     # 这个变量是 传包名的变量！！！ 
     # ∴-> while n:
     # 这次好像真的出来了！！！
-    step_test = str(pack_information[2])
+    # 打算使用最纯的办法了
+    # 变种暴力枚举法:
+    step_test1 = str(pack_information[0])
+    step_test2 = str(pack_information[1])
+    step_test3 = str(pack_information[2])
+    step_test4 = str(pack_information[3])
+    step_test5 = str(pack_information[4])
     #print(step_test)
-
-    result = step_test.split("'")[1].split("'")[0]
+    result1 = step_test1.split("'")[1].split("'")[0]
+    result2 = step_test2.split("'")[1].split("'")[0]
+    result3 = step_test3.split("'")[1].split("'")[0]
+    result4 = step_test4.split("'")[1].split("'")[0]
+    result5 = step_test5.split("'")[1].split("'")[0]
     #print(result)
-
-    convert_result = result.split("==")[0]
-
-    os.system("pip list | findstr " + convert_result)
-    
+    convert_result1 = result1.split("==")[0]
+    convert_result2 = result2.split("==")[0]
+    convert_result3 = result3.split("==")[0]
+    convert_result4 = result4.split("==")[0]
+    convert_result5 = result5.split("==")[0]
+    # 检查包名
+    os.system("pip list | findstr " + convert_result1)
+    os.system("pip list | findstr " + convert_result2)
+    os.system("pip list | findstr " + convert_result3)
+    os.system("pip list | findstr " + convert_result4)
+    os.system("pip list | findstr " + convert_result5)
     
 
     #print(fd)
@@ -182,6 +197,3 @@ main()
     # elif (operation_system == 'Linux'):
 
     # elif (operation_system == 'Debian'):
-
-    
-    
