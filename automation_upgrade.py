@@ -2,9 +2,8 @@
 # Functions: To download the python packages from internet automactically
 # Email-address: 691267837@qq.com
 # Date: 2022/10/31
-# Version: 0.0.8
+# Version: 0.0.9
 # Fundation: Virgil@copyright.org
-# Tip: There are some bugs in using on linux and windows operation system.There will be bug fixing as soon as possible.
 
 import os
 import re,string
@@ -13,11 +12,12 @@ import datetime
 import sys
 import platform
 import socket
-from unittest import result
 import urllib.request
 import urllib.error
 import requests
 import win32api, win32con
+# I don't have the ability to write the log module myself
+import logging
 
 
 def read_requirements(file_name):
@@ -33,6 +33,11 @@ def read_requirements(file_name):
 
 def check_packages():
     print('Dear guests,begin to check your system: ')
+    # Temporarily use the method of manually specifying the image source
+    os.system("pip install jmespath -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com ")
+    os.system("pip install win32api -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com ")
+    os.system("pip install win32con -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com ")
+    
     counter1 = 0
     while counter1 < 6:
         time.sleep(1)
@@ -46,11 +51,21 @@ def check_packages():
 
 
 def handle_packages(output_num,pack_information):
-    mirror_pools = {"pypi.tuna.tsinghua.edu.cn": "https://pypi.tuna.tsinghua.edu.cn/simple",
-                    "pypi.douban.com": "http://pypi.douban.com/simple/",
-                    "mirrors.aliyun.com": "http://mirrors.aliyun.com/pypi/simple/",
-                    "pypi.mirrors.ustc.edu.cn":"https://pypi.mirrors.ustc.edu.cn/simple/"}
-
+    # mirror_pools = {"pypi.tuna.tsinghua.edu.cn": "https://pypi.tuna.tsinghua.edu.cn/simple",
+    #                 "pypi.douban.com": "http://pypi.douban.com/simple/",
+    #                 "mirrors.aliyun.com": "http://mirrors.aliyun.com/pypi/simple/",
+    #                 "pypi.mirrors.ustc.edu.cn":"https://pypi.mirrors.ustc.edu.cn/simple/"}
+    
+    mirror_pools = {"aliyun": [
+    {"domain": "mirrors.aliyun.com","link":"http://mirrors.aliyun.com/pypi/simple/"}],
+    "ustc":[
+    {"domain":"pypi.mirrors.ustc.edu.cn","link": "https://pypi.mirrors.ustc.edu.cn/simple/"}],
+    "douban":[
+    {"domain":"pypi.douban.com","link": "http://pypi.douban.com/simple/"}],
+    "tsinghua":[
+    {"domain":"pypi.tuna.tsinghua.edu.cn","link": "https://pypi.tuna.tsinghua.edu.cn/simple/"}]
+    }
+    
     with open("Mirrors_links.json","w") as mirrors_file:
         mirrors_file.write(str(mirror_pools))
         mirrors_file.close()
@@ -101,6 +116,7 @@ def handle_packages(output_num,pack_information):
                 sys.exit
             else:
                 print("Your " + package_names + "'s version is not correct")
+                os.system("python Downloading.py")
 
 
                     
