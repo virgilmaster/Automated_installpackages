@@ -20,26 +20,8 @@ import urllib.error
 import requests
 import logging
 
-#from installation import counter_process
 
 
-
-def main():
-    #start_counter = time.perf_counter()
-    file_name = 'requirements.txt'
-    read_requirements(file_name)
-    operation_system = platform.system()
-    pack_information = read_requirements(file_name)
-    check_packages(operation_system)
-    pack_num = os.popen('type requirements.txt | find /v /c""')
-    output_num = pack_num.read()
-    handle_packages(output_num,pack_information,operation_system)
-
-    #package_detail = str(pack_information[i])
-    #convert_detail(package_detail)
-    # end_counter = time.perf_counter()
-    # runtime = end_counter - start_counter
-    # counter_process(runtime)
     
 
 def read_requirements(file_name):
@@ -90,8 +72,21 @@ def handle_packages(output_num,pack_information,operation_system):
             print(type(result_installed))
 
     
-
-    
+if __name__ == "__main__":
+    #start_counter = time.perf_counter()
+    file_name = 'requirements.txt'
+    read_requirements(file_name)
+    operation_system = platform.system()
+    pack_information = read_requirements(file_name)
+    check_packages(operation_system)
+    pack_num = os.popen('type requirements.txt | find /v /c""')
+    output_num = pack_num.read()
+    handle_packages(output_num,pack_information,operation_system)
+    #package_detail = str(pack_information[i])
+    #convert_detail(package_detail)
+    # end_counter = time.perf_counter()
+    # runtime = end_counter - start_counter
+    # counter_process(runtime)
 
 
     #print(fd)
@@ -105,7 +100,6 @@ def handle_packages(output_num,pack_information,operation_system):
 
 
 
-main()
 
         
 
