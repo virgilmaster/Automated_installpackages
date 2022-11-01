@@ -7,13 +7,16 @@ from automation_upgrade import read_requirements
 from automation_upgrade import handle_packages
 import platform
 
-# Json data from dictionary
+
+
 def installation_mirrors(mirror_pools):
     with open("Mirrors_links.json", "w") as mirrors_file:
         mirrors_file.write(str(mirror_pools))
         mirrors_file.close()
     print("Wait a moment,loading the settings")
 
+    
+ 
 def check_packages():
     operation_system = platform.system()
     if operation_system == "Windows":
@@ -22,7 +25,7 @@ def check_packages():
         output_num = pack_num.read()
         pack_num.close()
     elif operation_system == "Linux":
-        pack_num = os.popen('cat requirements.txt | wc -l"')
+        pack_num = os.popen('cat requirements.txt | wc -l')
         command_username = os.popen('whoami')
         username = command_username.read()
         output_num = pack_num.read()
