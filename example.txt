@@ -1,0 +1,15 @@
+import pip
+def registe():
+    name = input('plz enter your username: ')
+    if len(name) < 6:
+        raise Exception("username must have more than six characters")
+    else:
+        print("The username is signin successfully!", name)
+
+try:
+    registe()
+except Exception as err:
+    print(err)
+    print('register failed,plz try again')
+else:
+    print('sign in succesfully!!')
