@@ -15,8 +15,6 @@ import socket
 import urllib.request
 import urllib.error
 import requests
-import win32api, win32con
-# I don't have the ability to write the log module myself
 import logging
 
 
@@ -140,7 +138,7 @@ if __name__ == "__main__":
     end_counter = time.perf_counter()
     runtime = end_counter - start_counter
     counter_process(runtime)
-    win32api.MessageBox(0, "All installation items have been completed","Installation tips",win32con.MB_OK)
+    
 
 
 
