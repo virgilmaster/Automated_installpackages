@@ -2,7 +2,7 @@
 # Functions: To download the python packages from internet automactically
 # Email-address: 691267837@qq.com
 # Date: 2022/11/02
-# Version: 0.1.5
+# Version: 0.1.6
 # Fundation: Virgil@copyright.org
 
 import os
@@ -11,7 +11,7 @@ import time
 import datetime
 import sys
 import platform
-import win32api, win32con # Only use in windows
+import win32api, win32con
 import logging
 
 
@@ -55,7 +55,7 @@ def handle_packages(pack_information):
             donwload_file.write(str(username) + " have downloaded the " + package_names + " at time: " + current_time)
             donwload_file.close()
         final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
-        print(final_version)
+        
     
         if operation_system == "Windows":
             packages_installed = os.popen("pip list | findstr " + package_names) 
@@ -63,21 +63,22 @@ def handle_packages(pack_information):
             packages_installed.close()                              
             installed_version = str(result_installed).split(" ")[-1]
             final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
-            
            
-            if installed_version == []:
-                print("This " +  "packages have not be installed")
+           # spcial conditions
+            if installed_version == '[]':
+                print(package_names +  " have not be installed")
                 time.sleep(5)
-                print("Start launch the web_spiders,Downloading the new packages")
+                print("Start launch the web_spiders,downloading the new " + package_names)
+                #os.system("python Downloading.py")
             elif final_installed == final_version:
-                print("The version is the same version")
-                break # Not sure
+                print("The version is the same version,no necessary to install " + package_names + " again")
+                 
             else:
                 print("The packages's version is " + installed_version)
                 time.sleep(5)
-                print("Start to change your version,plz wait a moment")
+                print("Start to change" + package_names + "'s version,plz wait a moment~.~")
                 time.sleep(5)
-                os.system("python Downloading.py")
+                #os.system("python Downloading.py")
 
 
         elif operation_system == "Linux":
@@ -86,20 +87,21 @@ def handle_packages(pack_information):
             packages_installed.close()                              
             installed_version = str(result_installed).split(" ")[-1]
             final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
-           
-            if installed_version == []:
-                print("This " +  "packages have not be installed")
+           # spcial conditions
+            if installed_version == '[]':
+                print(package_names +  " have not be installed")
                 time.sleep(5)
-                print("Start launch the web_spiders,Downloading the new packages")
+                print("Start launch the web_spiders,downloading the new " + package_names)
+                #os.system("python Downloading.py")
             elif final_installed == final_version:
-                print("The version is the same version")
-                break # Not sure
+                print("The version is the same version,no necessary to install" + package_names + "again")
+                
             else:
                 print("The packages's version is " + installed_version)
                 time.sleep(5)
-                print("Start to change your version,plz wait a moment")
+                print("Start to change" + package_names + "'s version,plz wait a moment~.~")
                 time.sleep(5)
-                os.system("python Downloading.py")
+                #os.system("python Downloading.py")
 
 
 def counter_process(runtime):
@@ -141,16 +143,3 @@ if __name__ == "__main__":
     counter_process(runtime)
     # Only use in the windows operation system
     win32api.MessageBox(0, "All installation items have been completed","Installation tips",win32con.MB_OK)
-
-
-
-
-
-
-        
-
-
-
-
-    
-    
