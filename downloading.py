@@ -6,10 +6,7 @@ from automation_upgrade import handle_packages
 import platform
 
 
-
-
-
-def check_packages():
+def current_packages():
     operation_system = platform.system()
     if operation_system == "Windows":
         pack_num = os.popen('type requirements.txt | find /v /c""')
