@@ -2,13 +2,14 @@ from jmespath import search
 import requests
 import os
 import threading
-import winproxy
+import time
 
 def write_mirrors():
     with open("Mirrors_links.json", "w") as mirrors_file:
         mirrors_file.write(str(mirror_pools))
         mirrors_file.close()
     print("Wait a moment,loading the settings")
+    time.sleep(3)
 
 def ali_spider(aliyun_domain):
     r_ali = requests.get("http://" + aliyun_domain)
@@ -18,6 +19,7 @@ def ali_spider(aliyun_domain):
         #raise Exception("aliyun can not download the resources")
     else:
         print("Perpare to download the resources!!!")
+    time.sleep(5)
 
 def tsinghua_spider(tsinghua_domain):
     r_tsinghua = requests.get("http://" + tsinghua_domain)
@@ -27,6 +29,7 @@ def tsinghua_spider(tsinghua_domain):
         #raise Exception("tsinghua can not download the resources")
     else:
         print("Perpare to download the resources!!!")
+    time.sleep(5)
 
 def ustc_spider(ustc_domain):
     r_ustc = requests.get("http://" + ustc_domain)
@@ -36,7 +39,8 @@ def ustc_spider(ustc_domain):
         #raise Exception("ustc can not download the resources")
     else:
         print("Perpare to download the resources!!!")
-
+    time.sleep(5)
+    
 def douban_spider(douban_domain):
     r_douban = requests.get("http://" + douban_domain)
     code_douban = r_douban.status_code
@@ -45,6 +49,7 @@ def douban_spider(douban_domain):
         #raise Exception("douban can not download the resources")
     else:
         print("Perpare to download the resources!!!")
+    time.sleep(5)
 
 
 
