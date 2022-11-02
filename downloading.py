@@ -4,15 +4,10 @@ import datetime
 from automation_upgrade import read_requirements
 from automation_upgrade import handle_packages
 import platform
-import threading
 
 
-# Json data from dictionary
-# def installation_mirrors(mirror_pools):
-#     with open("Mirrors_links.json", "w") as mirrors_file:
-#         mirrors_file.write(str(mirror_pools))
-#         mirrors_file.close()
-#     print("Wait a moment,loading the settings")
+
+
 
 def check_packages():
     operation_system = platform.system()
@@ -21,6 +16,7 @@ def check_packages():
         username = os.getlogin()
         output_num = pack_num.read()
         pack_num.close()
+
     elif operation_system == "Linux":
         pack_num = os.popen('cat requirements.txt | wc -l"')
         command_username = os.popen('whoami')
@@ -31,21 +27,24 @@ def check_packages():
 
     pack_information = read_requirements("requirements.txt")
     numbers = int(output_num)
-    print(numbers)
+    
+    print("You will installed " + output_num + "Python packages")
     for i in range(numbers):
         package_detail = str(pack_information[i])
         package_result = package_detail.split("'")[1].split("'")[0]
         converted_result = package_result.split(",")[0]
-        package_names = package_result.split("==")[0]
-        package_version = package_result.split("==")[1]
-        print(package_names)
+        print(converted_result + "Plz make sure it's the correct version packages you want to installed on your computer!")
 
 
-
+# Not a wonderful functions,will soon increase the fucntion.
+# Next time will design in the class
 def installation_packages():
-         os.system("")
-
-
+    try:
+        os.system('python get_download.py')
+    except Exception as err:
+        print(err)
+    else:
+        print("Failed to download the resource!!!")
 
 
 if __name__ == '__main__':
