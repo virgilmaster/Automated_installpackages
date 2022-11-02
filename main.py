@@ -30,12 +30,7 @@ def read_requirements(file_name):
 
 
 def check_packages():
-    print('Dear guests,begin to check your system: ')
-    # Temporarily use the method of manually specifying the image source
-    os.system("pip install jmespath -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com ")
-    os.system("pip install win32api -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com ")
-    os.system("pip install win32con -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com ")
-    
+    print('Dear guests,begin to check your system: ')    
     counter1 = 0
     while counter1 < 6:
         time.sleep(1)
