@@ -3,6 +3,8 @@ import requests
 import os
 import threading
 import time
+from Downloading import current_packages
+
 
 def write_mirrors():
     with open("Mirrors_links.json", "w") as mirrors_file:
@@ -11,46 +13,49 @@ def write_mirrors():
     print("Wait a moment,loading the settings")
     time.sleep(3)
 
-def ali_spider(aliyun_domain):
+def ali_spider(aliyun_domain,aliyun_link):
     r_ali = requests.get("http://" + aliyun_domain)
     code_ali = r_ali.status_code
     if code_ali != 200:
         print("ali's requests is error")
-        #raise Exception("aliyun can not download the resources")
+        raise Exception("aliyun can not download the resources")
     else:
         print("Perpare to download the resources!!!")
-    time.sleep(5)
+        time.sleep(5)
+        # os.system("pip install " + )
 
-def tsinghua_spider(tsinghua_domain):
+def tsinghua_spider(tsinghua_domain,tsinghua_link):
     r_tsinghua = requests.get("http://" + tsinghua_domain)
     code_tsinghua = r_tsinghua.status_code
     if code_tsinghua != 200:
         print("tsinhua's requests is error")
-        #raise Exception("tsinghua can not download the resources")
+        raise Exception("tsinghua can not download the resources")
     else:
         print("Perpare to download the resources!!!")
-    time.sleep(5)
+        time.sleep(5)
+        # os.system()
 
-def ustc_spider(ustc_domain):
+def ustc_spider(ustc_domain,ustc_link):
     r_ustc = requests.get("http://" + ustc_domain)
     code_ustc = r_ustc.status_code
     if code_ustc != 200:
         print("ustc's requests is error")
-        #raise Exception("ustc can not download the resources")
+        raise Exception("ustc can not download the resources")
     else:
         print("Perpare to download the resources!!!")
-    time.sleep(5)
-    
-def douban_spider(douban_domain):
+        time.sleep(5)
+        # os.system()
+
+def douban_spider(douban_domain,douban_link):
     r_douban = requests.get("http://" + douban_domain)
     code_douban = r_douban.status_code
     if code_douban != 200:
         print("douban's requests is error")
-        #raise Exception("douban can not download the resources")
+        raise Exception("douban can not download the resources")
     else:
         print("Perpare to download the resources!!!")
-    time.sleep(5)
-
+        time.sleep(5)
+        # os.system()
 
 
 if __name__ == '__main__':
@@ -80,6 +85,7 @@ if __name__ == '__main__':
     ustc_domain = final_ustc.split(' ')[1].replace("'", "").replace(",", "")
     ustc_link = final_ustc.split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
     write_mirrors()
+
     task_ali = threading.Thread(target=ali_spider,args=aliyun_domain)
     task_tsinghua = threading.Thread(target=tsinghua_spider,args=tsinghua_domain)
     task_ustc = threading.Thread(target=ustc_spider,args=ustc_domain)
