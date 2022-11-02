@@ -1,9 +1,15 @@
 import os
 import time
 import datetime
-from automation_upgrade import read_requirements
-from automation_upgrade import handle_packages
+from main import read_requirements
+from main import handle_packages
 import platform
+from get_download import ali_spider
+from get_download import ustc_spider
+from get_download import tsinghua_spider
+from get_download import douban_spider
+
+
 
 
 def current_packages():
@@ -21,19 +27,23 @@ def current_packages():
         output_num = pack_num.read()
         command_username.close()
         pack_num.close()
+        # test the function and the variable
+        print(username)
+        print(output_num)
+
 
     pack_information = read_requirements("requirements.txt")
     numbers = int(output_num)
-    
-    print("You will installed " + output_num + "Python packages")
+
+    #print("You will installed " + output_num + " Python packages")
     for i in range(numbers):
         package_detail = str(pack_information[i])
         package_result = package_detail.split("'")[1].split("'")[0]
         converted_result = package_result.split(",")[0]
-        print(converted_result + "Plz make sure it's the correct version packages you want to installed on your computer!")
+        print(converted_result + " Plz make sure it's the correct version packages you want to installed on your computer!")
 
 
-# Not a wonderful functions,will soon increase the fucntion.
+# Not a wonderful functions,will soon have increase the fucntion.
 # Next time will design in the class
 def installation_packages():
     try:
@@ -44,7 +54,15 @@ def installation_packages():
         print("Failed to download the resource!!!")
 
 
+
+# def check_packages():
+    # Pseudocode
+    # if pip list result have check the packages 
+    # and break the thread spider downloading the same packages 
+    # and print the final result to the guests
+
 if __name__ == '__main__':
-    check_packages()
+    current_packages()
     installation_packages()
+    #check_packages()
 
