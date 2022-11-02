@@ -1,8 +1,8 @@
 # Author: Virgil.babala
 # Functions: To download the python packages from internet automactically
 # Email-address: 691267837@qq.com
-# Date: 2022/10/31
-# Version: 0.1.0
+# Date: 2022/11/02
+# Version: 0.1.5
 # Fundation: Virgil@copyright.org
 
 import os
@@ -11,18 +11,15 @@ import time
 import datetime
 import sys
 import platform
-import socket
-import urllib.request
-import urllib.error
-import requests
+import win32api, win32con # Only use in windows
 import logging
 
 
 def read_requirements(file_name):
-    pack_information = []
-    file = open(file_name,'r')
+    pack_information = []  
+    file = open(file_name,'r') 
     file_pack_information = file.readlines()
-    for row in file_pack_information:
+    for row in file_pack_information:  
         tmp_list = row.split(' ')
         tmp_list[-1] = tmp_list[-1].replace('\n',',')
         pack_information.append(tmp_list)
@@ -31,7 +28,7 @@ def read_requirements(file_name):
 
 def check_packages():
     print('Dear guests,begin to check your system: ')    
-    counter1 = 0
+    counter1 = 0 
     while counter1 < 6:
         time.sleep(1)
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
@@ -39,65 +36,72 @@ def check_packages():
     time.sleep(3)
     print('Welcome to use my scripts,hope to help you')
     print('WOW, your system is: ' + operation_system + '!!!')
-    print("Start to check whether the python packages is intalled or not: ")
-    print("You have installed the following installation package: ")
+    # print("Start to check whether the python packages is intalled or not: ")
+    # print("You have installed the following installation package: ")
 
-
-def handle_packages(output_num,pack_information):
-    numbers = int(output_num) 
-    # for i in (0,numbers-4,numbers-3,numbers-2,numbers-1):
-    for i in range(numbers):
-        package_detail = str(pack_information[i])
+# Learn to use debuging function
+def handle_packages(pack_information):
+    numbers = int(final_num)  
+    for i in range(numbers):  
+        package_detail = str(pack_information[i]) 
         package_result = package_detail.split("'")[1].split("'")[0]
         converted_result = package_result.split(",")[0]
-
         package_names = package_result.split("==")[0]  
         package_version = package_result.split("==")[1]
 
-
-        with open("Download_record.txt","w") as donwload_file: # Not wonderful functions
+        
+        with open("Download_record.txt","w") as donwload_file: 
             current_time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
             donwload_file.write(str(username) + " have downloaded the " + package_names + " at time: " + current_time)
             donwload_file.close()
         final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
-        
-
-        
+        print(final_version)
+    
         if operation_system == "Windows":
-            packages_installed = os.popen("pip list | findstr " + package_names)
-            result_installed = packages_installed.read()
-            packages_installed.close()
-            installed_version = result_installed.split(" ")[-1]
-            final_installed = re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)
+            packages_installed = os.popen("pip list | findstr " + package_names) 
+            result_installed = packages_installed.readlines()     
+            packages_installed.close()                              
+            installed_version = str(result_installed).split(" ")[-1]
+            final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
             
-            while final_installed == final_version:
-                print("Your " + package_names + "'s version is correct have no necessary to install")
-                time.sleep(3)
-                sys.exit
+           
+            if installed_version == []:
+                print("This " +  "packages have not be installed")
+                time.sleep(5)
+                print("Start launch the web_spiders,Downloading the new packages")
+            elif final_installed == final_version:
+                print("The version is the same version")
+                break # Not sure
             else:
-                print("Your " + package_names + "'s version is not correct")
-                #os.system("echo " + "powershell " + ">" + "launch_powershell.bat")
+                print("The packages's version is " + installed_version)
+                time.sleep(5)
+                print("Start to change your version,plz wait a moment")
+                time.sleep(5)
                 os.system("python Downloading.py")
+
 
         elif operation_system == "Linux":
-            packages_installed = os.popen("pip list | grep " + package_names)
-            result_installed = packages_installed.read()
-            packages_installed.close()
-            installed_version = result_installed.split(" ")[-1]
-            final_installed = re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)
-            
-            while final_installed == final_version:
-                print("Your " + package_names + "'s version is correct have no necessary to install")
-                time.sleep(3)
-                sys.exit
+            packages_installed = os.popen("pip list | grep " + package_names) 
+            result_installed = packages_installed.readlines()     
+            packages_installed.close()                              
+            installed_version = str(result_installed).split(" ")[-1]
+            final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
+           
+            if installed_version == []:
+                print("This " +  "packages have not be installed")
+                time.sleep(5)
+                print("Start launch the web_spiders,Downloading the new packages")
+            elif final_installed == final_version:
+                print("The version is the same version")
+                break # Not sure
             else:
-                print("Your " + package_names + "'s version is not correct")
+                print("The packages's version is " + installed_version)
+                time.sleep(5)
+                print("Start to change your version,plz wait a moment")
+                time.sleep(5)
                 os.system("python Downloading.py")
 
 
-                    
-
-            
 def counter_process(runtime):
     scale = 100
     print("Start downloading the python packages".center(scale // 2, "-"))
@@ -120,20 +124,23 @@ if __name__ == "__main__":
     if operation_system == "Windows":
         pack_num = os.popen('type requirements.txt | find /v /c""')
         username = os.getlogin()
-        output_num = pack_num.read()
+        output_num = pack_num.readlines()
+        final_num = str(output_num[0]).replace("\n",'')
         pack_num.close()
     elif operation_system == "Linux":
         pack_num = os.popen('cat requirements.txt | wc -l"')
         command_username = os.popen('whoami')
         username = command_username.read()
-        output_num = pack_num.read()
+        output_num = pack_num.readlines()
+        final_num = str(output_num[0]).replace("\n",'')
         command_username.close()
         pack_num.close()
-    handle_packages(output_num,pack_information)
+    handle_packages(pack_information)
     end_counter = time.perf_counter()
     runtime = end_counter - start_counter
     counter_process(runtime)
-    
+    # Only use in the windows operation system
+    win32api.MessageBox(0, "All installation items have been completed","Installation tips",win32con.MB_OK)
 
 
 
