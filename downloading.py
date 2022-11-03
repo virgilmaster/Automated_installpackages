@@ -85,5 +85,8 @@ def installation_packages():
 if __name__ == '__main__':
     current_packages()
     installation_packages()
+    # logical desgign
+    # when spider raise expection
+    # jump to the next spider thread
     # thread1 = 
     # thread2 =
