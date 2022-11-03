@@ -2,7 +2,7 @@
 # Functions: To download the python packages from internet automactically
 # Email-address: 691267837@qq.com
 # Date: 2022/11/03
-# Version: 0.1.7
+# Version: 0.1.8
 # Fundation: Virgil@copyright.org
 
 import os
@@ -11,6 +11,7 @@ import time
 import datetime
 import sys
 import platform
+#import win32api, win32con
 import logging
 
 
@@ -35,6 +36,8 @@ def check_system():
     time.sleep(3)
     print('Welcome to use my scripts,hope to help you')
     print('WOW, your system is: ' + operation_system + '!!!')
+    # print("Start to check whether the python packages is intalled or not: ")
+    # print("You have installed the following installation package: ")
 
 
 def handle_packages(pack_information):
@@ -134,4 +137,8 @@ if __name__ == "__main__":
     end_counter = time.perf_counter()
     runtime = end_counter - start_counter
     counter_process(runtime)
-   
+    # Only use in the windows operation system
+    #win32api.MessageBox(0, "All installation items have been completed","Installation tips",win32con.MB_OK)
+
+
+
