@@ -4,6 +4,14 @@ import datetime
 from main import read_requirements
 from main import handle_packages
 import platform
+#import thread
+from get_download import ali_spider
+from get_download import tsinghua_spider
+from get_download import ustc_spider
+from get_download import douban_spider
+
+
+
 
 
 
@@ -39,13 +47,21 @@ def current_packages():
     #print(converted_result + " Plz make sure it's the correct version packages you want to installed on your computer!")
 
 
-# Not a wonderful functions,will soon have increase the fucntion.
-# Next time will design in the class
+
 def installation_packages():
     try:
-        os.system('python get_download.py')
+        ali_spider()
+        time.sleep(5)
+        tsinghua_spider()
+        time.sleep(5)
+        ustc_spider()
+        time.sleep(5)
+        douban_spider()
+        time.sleep(5)
+        
     except Exception as err:
         print(err)
+        
     else:
         print("Failed to download the resource!!!")
         time.sleep(5)
@@ -58,8 +74,16 @@ def installation_packages():
     # if pip list result have check the packages 
     # and break the thread spider downloading the same packages 
     # and print the final result to the guests
+    # when ali_spider finished:
+    # os.system() check packages
+    # result == $package_name:
+    # break spider
+    # next package 
+    # all finish pass
+    
 
 if __name__ == '__main__':
     current_packages()
     installation_packages()
-
+    # thread1 = 
+    # thread2 =
