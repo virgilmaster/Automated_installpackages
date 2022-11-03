@@ -136,3 +136,7 @@ if __name__ == '__main__':
     task_tsinghua = threading.Thread(target=tsinghua_spider,args=tsinghua_domain)
     task_ustc = threading.Thread(target=ustc_spider,args=ustc_domain)
     task_douban = threading.Thread(target=douban_spider,args=douban_domain)
+    task_ali(start)
+    task_tsinghua(start)
+    task_ustc(start)
+    task_douban(start)
