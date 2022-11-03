@@ -4,11 +4,6 @@ import datetime
 from main import read_requirements
 from main import handle_packages
 import platform
-from get_download import ali_spider
-from get_download import ustc_spider
-from get_download import tsinghua_spider
-from get_download import douban_spider
-
 
 
 
@@ -20,6 +15,7 @@ def current_packages():
         output_num = pack_num.read()
         pack_num.close()
 
+
     elif operation_system == "Linux":
         pack_num = os.popen('cat requirements.txt | wc -l"')
         command_username = os.popen('whoami')
@@ -27,20 +23,20 @@ def current_packages():
         output_num = pack_num.read()
         command_username.close()
         pack_num.close()
-        # test the function and the variable
-        print(username)
-        print(output_num)
+        
 
 
     pack_information = read_requirements("requirements.txt")
-    numbers = int(output_num)
+    numbers = int((output_num[0].replace("\n","")))
 
-    #print("You will installed " + output_num + " Python packages")
+
+    
     for i in range(numbers):
         package_detail = str(pack_information[i])
         package_result = package_detail.split("'")[1].split("'")[0]
         converted_result = package_result.split(",")[0]
-        print(converted_result + " Plz make sure it's the correct version packages you want to installed on your computer!")
+        
+    #print(converted_result + " Plz make sure it's the correct version packages you want to installed on your computer!")
 
 
 # Not a wonderful functions,will soon have increase the fucntion.
@@ -52,6 +48,8 @@ def installation_packages():
         print(err)
     else:
         print("Failed to download the resource!!!")
+        time.sleep(5)
+        
 
 
 
@@ -64,5 +62,4 @@ def installation_packages():
 if __name__ == '__main__':
     current_packages()
     installation_packages()
-    #check_packages()
 
