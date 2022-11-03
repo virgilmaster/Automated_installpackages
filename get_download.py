@@ -3,7 +3,8 @@ import requests
 import os
 import threading
 import time
-from Downloading import current_packages
+import platform
+
 
 
 def write_mirrors():
@@ -13,7 +14,29 @@ def write_mirrors():
     print("Wait a moment,loading the settings")
     time.sleep(3)
 
-def ali_spider(aliyun_domain,aliyun_link):
+# 暂时使用复用模式，目前还未掌握类设计 只能用脚本形式跑起来
+def read_requirements1(file_name):
+    pack_information = []  
+    file = open(file_name,'r') 
+    file_pack_information = file.readlines()
+    for row in file_pack_information:  
+        tmp_list = row.split(' ')
+        tmp_list[-1] = tmp_list[-1].replace('\n',',')
+        pack_information.append(tmp_list)
+    return pack_information
+
+
+
+def handle_packages1(pack_information):
+    numbers = int(final_num) 
+    for i in range(numbers):  
+        package_detail = str(pack_information[i]) 
+        package_result = package_detail.split("'")[1].split("'")[0]
+        package_names = package_result.split("==")[0]
+    return package_names
+
+
+def ali_spider(aliyun_domain,aliyun_link,package_names):
     r_ali = requests.get("http://" + aliyun_domain)
     code_ali = r_ali.status_code
     if code_ali != 200:
@@ -22,9 +45,10 @@ def ali_spider(aliyun_domain,aliyun_link):
     else:
         print("Perpare to download the resources!!!")
         time.sleep(5)
-        # os.system("pip install " + )
+        os.system("pip install " + package_names + " -i " + aliyun_link + " --trusted-host " + aliyun_domain)
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
 
-def tsinghua_spider(tsinghua_domain,tsinghua_link):
+def tsinghua_spider(tsinghua_domain,tsinghua_link,package_names):
     r_tsinghua = requests.get("http://" + tsinghua_domain)
     code_tsinghua = r_tsinghua.status_code
     if code_tsinghua != 200:
@@ -33,9 +57,10 @@ def tsinghua_spider(tsinghua_domain,tsinghua_link):
     else:
         print("Perpare to download the resources!!!")
         time.sleep(5)
-        # os.system()
+        os.system("pip install " + package_names + " -i " + tsinghua_link + " --trusted-host " + tsinghua_domain)
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
 
-def ustc_spider(ustc_domain,ustc_link):
+def ustc_spider(ustc_domain,ustc_link,package_names):
     r_ustc = requests.get("http://" + ustc_domain)
     code_ustc = r_ustc.status_code
     if code_ustc != 200:
@@ -44,9 +69,10 @@ def ustc_spider(ustc_domain,ustc_link):
     else:
         print("Perpare to download the resources!!!")
         time.sleep(5)
-        # os.system()
+        os.system("pip install " + package_names + " -i " + ustc_link + " --trusted-host " + ustc_domain)
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
 
-def douban_spider(douban_domain,douban_link):
+def douban_spider(douban_domain,douban_link,package_names):
     r_douban = requests.get("http://" + douban_domain)
     code_douban = r_douban.status_code
     if code_douban != 200:
@@ -55,10 +81,12 @@ def douban_spider(douban_domain,douban_link):
     else:
         print("Perpare to download the resources!!!")
         time.sleep(5)
-        # os.system()
+        os.system("pip install " + package_names + " -i " + douban_link + " --trusted-host " + douban_domain)
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
 
 
 if __name__ == '__main__':
+    file_name = 'requirements.txt'
     mirror_pools = {"aliyun": [
     {"domain": "mirrors.aliyun.com","link":"http://mirrors.aliyun.com/pypi/simple/"}],
     "ustc":[
@@ -85,7 +113,25 @@ if __name__ == '__main__':
     ustc_domain = final_ustc.split(' ')[1].replace("'", "").replace(",", "")
     ustc_link = final_ustc.split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
     write_mirrors()
-
+    operation_system = platform.system()
+    if operation_system == "Windows":
+        pack_num = os.popen('type requirements.txt | find /v /c""')
+        username = os.getlogin()
+        output_num = pack_num.readlines()
+        final_num = str(output_num[0]).replace("\n",'')
+        pack_num.close()
+    elif operation_system == "Linux":
+        pack_num = os.popen('cat requirements.txt | wc -l"')
+        command_username = os.popen('whoami')
+        username = command_username.read()
+        output_num = pack_num.readlines()
+        final_num = str(output_num[0]).replace("\n",'')
+        command_username.close()
+        pack_num.close()
+    read_requirements1(file_name)
+    pack_information = read_requirements1(file_name)
+    handle_packages1(pack_information)
+    package_names = handle_packages1(pack_information)
     task_ali = threading.Thread(target=ali_spider,args=aliyun_domain)
     task_tsinghua = threading.Thread(target=tsinghua_spider,args=tsinghua_domain)
     task_ustc = threading.Thread(target=ustc_spider,args=ustc_domain)
