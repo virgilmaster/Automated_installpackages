@@ -14,7 +14,7 @@ def write_mirrors():
     print("Wait a moment,loading the settings")
     time.sleep(3)
 
-# 暂时使用复用模式，目前还未掌握类设计 只能用脚本形式跑起来
+
 def read_requirements1(file_name):
     pack_information = []  
     file = open(file_name,'r') 
@@ -132,11 +132,3 @@ if __name__ == '__main__':
     pack_information = read_requirements1(file_name)
     handle_packages1(pack_information)
     package_names = handle_packages1(pack_information)
-    task_ali = threading.Thread(target=ali_spider,args=aliyun_domain)
-    task_tsinghua = threading.Thread(target=tsinghua_spider,args=tsinghua_domain)
-    task_ustc = threading.Thread(target=ustc_spider,args=ustc_domain)
-    task_douban = threading.Thread(target=douban_spider,args=douban_domain)
-    task_ali(start)
-    task_tsinghua(start)
-    task_ustc(start)
-    task_douban(start)
