@@ -4,14 +4,7 @@ import datetime
 from main import read_requirements
 from main import handle_packages
 import platform
-#import thread
-from get_download import ali_spider
-from get_download import tsinghua_spider
-from get_download import ustc_spider
-from get_download import douban_spider
-
-
-
+import threading
 
 
 
@@ -50,13 +43,15 @@ def current_packages():
 
 def installation_packages():
     try:
-        ali_spider()
+        # 暂时先这样子写: 目前阶段能跑起来就行
+        # 周末打算开发出多线程 下载的方法
+        os.system('python ali_spider.py')
         time.sleep(5)
-        tsinghua_spider()
+        os.system('python tsinghua_spider.py')
         time.sleep(5)
-        ustc_spider()
+        os.system('python ustc_spider.py')
         time.sleep(5)
-        douban_spider()
+        os.system('python douban_spider.py')
         time.sleep(5)
         
     except Exception as err:
