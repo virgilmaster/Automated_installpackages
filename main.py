@@ -1,8 +1,8 @@
 # Author: Virgil.babala
 # Functions: To download the python packages from internet automactically
 # Email-address: 691267837@qq.com
-# Date: 2022/11/03
-# Version: 0.1.8
+# Date: 2022/11/04
+# Version: 0.1.9
 # Fundation: Virgil@copyright.org
 
 import os
@@ -11,7 +11,6 @@ import time
 import datetime
 import sys
 import platform
-#import win32api, win32con
 import logging
 
 
@@ -36,9 +35,6 @@ def check_system():
     time.sleep(3)
     print('Welcome to use my scripts,hope to help you')
     print('WOW, your system is: ' + operation_system + '!!!')
-    # print("Start to check whether the python packages is intalled or not: ")
-    # print("You have installed the following installation package: ")
-
 
 def handle_packages(pack_information):
     numbers = int(final_num)  
@@ -50,7 +46,7 @@ def handle_packages(pack_information):
         package_version = package_result.split("==")[1]
 
         
-        with open("Download_record.txt","w") as donwload_file: 
+        with open("Record.log","w") as donwload_file: 
             current_time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
             donwload_file.write(str(username) + " have downloaded the " + package_names + " at time: " + current_time)
             donwload_file.close()
@@ -69,14 +65,14 @@ def handle_packages(pack_information):
             if installed_version == '[]':
                 print(package_names +  " have not be installed")
                 print("Start launch the web_spiders,downloading the new " + package_names)
-                os.system("python Downloading.py")
+                #os.system("python download_queue.py")
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
 
             else:
                 print("The packages's version is " + installed_version)
                 print("Start to change " + package_names + "'s version,plz wait a moment~.~")
-                os.system("python Downloading.py")
+                #os.system("python download_queue.py")
 
 
         elif operation_system == "Linux":
@@ -90,13 +86,13 @@ def handle_packages(pack_information):
             if installed_version == '[]':
                 print(package_names +  " have not be installed")
                 print("Start launch the web_spiders,downloading the new " + package_names)
-                os.system("python Downloading.py")
+                #os.system("python download_queue.py")
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
             else:
                 print("The packages's version is " + installed_version)
                 print("Start to change" + package_names + "'s version,plz wait a moment~.~")
-                os.system("python Downloading.py")
+                #os.system("python download_queue.py")
 
 
 def counter_process(runtime):
@@ -137,8 +133,4 @@ if __name__ == "__main__":
     end_counter = time.perf_counter()
     runtime = end_counter - start_counter
     counter_process(runtime)
-    # Only use in the windows operation system
-    #win32api.MessageBox(0, "All installation items have been completed","Installation tips",win32con.MB_OK)
-
-
-
+    
