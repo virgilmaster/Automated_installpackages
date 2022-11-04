@@ -4,6 +4,7 @@ import datetime
 from main import read_requirements
 from main import handle_packages
 import platform
+from multiprocessing import Process,Lock
 import threading
 
 
@@ -45,15 +46,45 @@ def installation_packages():
     try:
         # 暂时先这样子写: 目前阶段能跑起来就行
         # 周末打算开发出多线程 下载的方法
-        os.system('python ali_spider.py')
-        time.sleep(5)
-        os.system('python tsinghua_spider.py')
-        time.sleep(5)
-        os.system('python ustc_spider.py')
-        time.sleep(5)
-        os.system('python douban_spider.py')
-        time.sleep(5)
-        
+        # 一会儿就要去吃饭了
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+        # 周末要多写点代码
+        # 今天的代码写的有点少
+
     except Exception as err:
         print(err)
         
@@ -78,6 +109,8 @@ def installation_packages():
     
 
 if __name__ == '__main__':
+    tasklist = []
+    lock = Lock()
     current_packages()
     installation_packages()
     # logical desgign
@@ -85,3 +118,5 @@ if __name__ == '__main__':
     # jump to the next spider thread
     # thread1 = 
     # thread2 =
+    # thread3 =
+    # thread4 =
