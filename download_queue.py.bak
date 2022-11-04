@@ -1,0 +1,134 @@
+import os
+import time
+import datetime
+from main import read_requirements
+from main import handle_packages
+import platform
+import threading
+from jmespath import search
+from package_crawler import ali_spider
+from package_crawler import ustc_spider
+from package_crawler import douban_spider
+from package_crawler import tsinghua_spider
+from package_crawler import mirrors_master
+from package_crawler import handle_packages1
+from package_crawler import read_requirements1
+
+# Not running.Pushing forward!!! 
+# def current_packages():
+#     operation_system = platform.system()
+#     if operation_system == "Windows":
+#         pack_num = os.popen('type requirements.txt | find /v /c""')
+#         username = os.getlogin()
+#         output_num = pack_num.read()
+#         pack_num.close()
+
+#     elif operation_system == "Linux":
+#         pack_num = os.popen('cat requirements.txt | wc -l"')
+#         command_username = os.popen('whoami')
+#         username = command_username.read()
+#         output_num = pack_num.read()
+#         command_username.close()
+#         pack_num.close()
+        
+#     pack_information = read_requirements("requirements.txt")
+#     numbers = int((output_num[0].replace("\n","")))
+
+#     for i in range(numbers):
+#         package_detail = str(pack_information[i])
+#         package_result = package_detail.split("'")[1].split("'")[0]
+#         converted_result = package_result.split(",")[0]
+        
+# def check_numbers(operation_system):
+#     if operation_system == "Windows":
+#         pack_num = os.popen('type requirements.txt | find /v /c""')
+#         username = os.getlogin()
+#         output_num = pack_num.readlines()
+#         final_num = str(output_num[0]).replace("\n",'')
+#         pack_num.close()
+#     elif operation_system == "Linux":
+#         pack_num = os.popen('cat requirements.txt | wc -l"')
+#         command_username = os.popen('whoami')
+#         username = command_username.read()
+#         output_num = pack_num.readlines()
+#         final_num = str(output_num[0]).replace("\n",'')
+#         command_username.close()
+#         pack_num.close()
+#     return final_num
+
+def installation_packages():
+    file_name = 'requirements.txt'
+    read_requirements1(file_name)
+    operation_system = platform.system()
+    if operation_system == "Windows":
+        pack_num = os.popen('type requirements.txt | find /v /c""')
+        username = os.getlogin()
+        output_num = pack_num.readlines()
+        final_num = str(output_num[0]).replace("\n",'')
+        pack_num.close()
+    elif operation_system == "Linux":
+        pack_num = os.popen('cat requirements.txt | wc -l"')
+        command_username = os.popen('whoami')
+        username = command_username.read()
+        output_num = pack_num.readlines()
+        final_num = str(output_num[0]).replace("\n",'')
+        command_username.close()
+        pack_num.close()
+    
+    numbers = int(final_num) 
+    for i in range(numbers):  
+        package_detail = str(pack_information[i]) 
+        package_result = package_detail.split("'")[1].split("'")[0]
+        package_names = package_result.split("==")[0]
+    pack_information = read_requirements1(file_name)
+    
+    package_names = handle_packages1(pack_information)
+    mirror_pools = {"aliyun": [
+    {"domain": "mirrors.aliyun.com","link":"http://mirrors.aliyun.com/pypi/simple/"}],
+    "ustc":[
+    {"domain":"pypi.mirrors.ustc.edu.cn","link": "https://pypi.mirrors.ustc.edu.cn/simple/"}],
+    "douban":[
+    {"domain":"pypi.douban.com","link": "http://pypi.douban.com/simple/"}],
+    "tsinghua":[
+    {"domain":"pypi.tuna.tsinghua.edu.cn","link": "https://pypi.tuna.tsinghua.edu.cn/simple/"}]
+    }
+    aliyun_domain = mirrors_master(mirror_pools)
+    aliyun_link = mirrors_master(mirror_pools)
+    tsinghua_domain = mirrors_master(mirror_pools)
+    tsinghua_link = mirrors_master(mirror_pools)
+    douban_domain = mirrors_master(mirror_pools)
+    douban_link = mirrors_master(mirror_pools)
+    ustc_domain = mirrors_master(mirror_pools)
+    ustc_link = mirrors_master(mirror_pools)
+    try:
+        ali_spider(aliyun_domain,aliyun_link,package_names)
+        time.sleep(5)
+        tsinghua_spider(tsinghua_domain,tsinghua_link,package_names)
+        time.sleep(5)
+        ustc_spider(ustc_domain,ustc_link,package_names)
+        time.sleep(5)
+        douban_spider(douban_domain,douban_link,package_names)
+        time.sleep(5)
+      
+    except Exception as err:
+        print(err)
+    
+    else:
+        print("Failed to download the resource!!!")
+        time.sleep(5)
+        
+    
+
+if __name__ == '__main__':
+    #current_packages()
+    installation_packages()
+    file_name = 'requirements.txt'
+    #check_numbers(operation_system)
+    t1 = threading.Thread(target=installation_packages,args=(ali_spider))
+    t2 = threading.Thread(target=installation_packages,args=(tsinghua_spider))
+    t3 = threading.Thread(target=installation_packages,args=(ustc_spider))
+    t4 = threading.Thread(target=installation_packages,args=(douban_spider))
+    t1.start()
+    t2.start()
+    t3.start()
+    t4.start()
