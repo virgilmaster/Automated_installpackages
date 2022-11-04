@@ -1,7 +1,6 @@
 from jmespath import search
 import requests
 import os
-import threading
 import time
 import platform
 
@@ -34,6 +33,26 @@ def handle_packages1(pack_information):
         package_result = package_detail.split("'")[1].split("'")[0]
         package_names = package_result.split("==")[0]
     return package_names
+
+
+def mirrors_master(mirror_pools):
+    aliyun_pool = search("aliyun", mirror_pools)
+    final_ali = str(aliyun_pool)
+    aliyun_domain = final_ali.split(' ')[1].replace("'", "").replace(",", "")
+    aliyun_link = final_ali.split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
+    tsinghua_pool = search("tsinghua", mirror_pools)
+    final_tsinghua = str(tsinghua_pool)
+    tsinghua_domain = final_tsinghua.split(' ')[1].replace("'", "").replace(",", "")
+    tsinghua_link = final_tsinghua.split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
+    douban_pool = search("douban", mirror_pools)
+    final_douban = str(douban_pool)
+    douban_domain = final_douban.split(' ')[1].replace("'", "").replace(",", "")
+    douban_link = final_douban.split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
+    ustc_pool = search("ustc", mirror_pools)
+    final_ustc = str(ustc_pool)
+    ustc_domain = final_ustc.split(' ')[1].replace("'", "").replace(",", "")
+    ustc_link = final_ustc.split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
+
 
 
 def ali_spider(aliyun_domain,aliyun_link,package_names):
@@ -72,6 +91,7 @@ def ustc_spider(ustc_domain,ustc_link,package_names):
         os.system("pip install " + package_names + " -i " + ustc_link + " --trusted-host " + ustc_domain)
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
 
+
 def douban_spider(douban_domain,douban_link,package_names):
     r_douban = requests.get("http://" + douban_domain)
     code_douban = r_douban.status_code
@@ -96,22 +116,6 @@ if __name__ == '__main__':
     "tsinghua":[
     {"domain":"pypi.tuna.tsinghua.edu.cn","link": "https://pypi.tuna.tsinghua.edu.cn/simple/"}]
     }
-    aliyun_pool = search("aliyun", mirror_pools)
-    final_ali = str(aliyun_pool)
-    aliyun_domain = final_ali.split(' ')[1].replace("'", "").replace(",", "")
-    aliyun_link = final_ali.split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
-    tsinghua_pool = search("tsinghua", mirror_pools)
-    final_tsinghua = str(tsinghua_pool)
-    tsinghua_domain = final_tsinghua.split(' ')[1].replace("'", "").replace(",", "")
-    tsinghua_link = final_tsinghua.split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
-    douban_pool = search("douban", mirror_pools)
-    final_douban = str(douban_pool)
-    douban_domain = final_douban.split(' ')[1].replace("'", "").replace(",", "")
-    douban_link = final_douban.split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
-    ustc_pool = search("ustc", mirror_pools)
-    final_ustc = str(ustc_pool)
-    ustc_domain = final_ustc.split(' ')[1].replace("'", "").replace(",", "")
-    ustc_link = final_ustc.split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
     write_mirrors()
     operation_system = platform.system()
     if operation_system == "Windows":
