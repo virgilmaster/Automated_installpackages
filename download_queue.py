@@ -65,9 +65,6 @@ if __name__ == '__main__':
     choose_task = str(input('Dear master please choose which spider you want to use: ' + '1:ali、2:douban、3:tsinghua、4:ustc' + '\n'))
     current_packages()
     installation_packages()
-    # logical desgign
-    # when spider raise expection
-    # jump to the next spider thread
     # thread1 = 
     # thread2 =
     # thread3 =
