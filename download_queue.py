@@ -44,11 +44,17 @@ def ustctask():
 
 def installation_packages(choose_task):
     try:
-        final_task = choose_task
-        # alitask()
-        # doubantask()
-        # tsinghuatask()
-        # ustctask()
+        if choose_task == "1":
+            alitask()
+        elif choose_task == "2":
+            doubantask()
+        elif choose_task == "3":
+            tsinghuatask()
+        elif choose_task == "4":
+            ustctask()
+
+        #final_task = choose_task
+
 
     except Exception as err:
         print(err)
@@ -62,9 +68,12 @@ def installation_packages(choose_task):
 if __name__ == '__main__':
     tasklist = []
     lock = Lock()
-    choose_task = str(input('Dear master please choose which spider you want to use: ' + '1:ali、2:douban、3:tsinghua、4:ustc' + '\n'))
-    current_packages()
-    installation_packages()
+    choose_task = int(input('Dear master please choose which grabber you want to use: ' + 'Only pick the number: 1.ali 2.douban 3.tsinghua 4.ustc' + '\n'))
+    # current_packages()
+    installation_packages(choose_task)
+    # logical desgign
+    # when spider raise expection
+    # jump to the next spider thread
     # thread1 = 
     # thread2 =
     # thread3 =
