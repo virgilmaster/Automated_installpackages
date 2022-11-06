@@ -47,9 +47,11 @@ def ustc_downloader(pack_information):
         else:
             print("Perpare to download the resources!!!")
             time.sleep(5)
+            begin_time = time.time()
             os.system("pip install " + package_result.replace(",","") + " -i " + ustc_link + " --trusted-host " + ustc_domain)
             print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-
+            end_time  = time.time()
+            print("The total time is: %s" % (end_time - begin_time))
 
 if __name__ == '__main__':
     file_name = 'requirements.txt'
