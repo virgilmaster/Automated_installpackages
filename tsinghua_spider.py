@@ -49,9 +49,9 @@ def tsinghua_downloader(pack_information):
             time.sleep(5)
             begin_time = time.time()
             os.system("pip install " + package_result.replace(",","") + " -i " + tsinghua_link + " --trusted-host " + tsinghua_domain)
-            print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+            print('{:>^59}'.format(">"))
             end_time  = time.time()
-            print("The total time is: %s" % (end_time - begin_time))
+            print("The total time is: %s" %(end_time - begin_time))
 
 if __name__ == '__main__':
     file_name = 'requirements.txt'
