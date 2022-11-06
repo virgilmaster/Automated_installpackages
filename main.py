@@ -1,8 +1,8 @@
 # Author: Virgil.babala
 # Functions: To download the python packages from internet automactically
 # Email-address: 691267837@qq.com
-# Date: 2022/11/05
-# Version: 0.2.0
+# Date: 2022/11/06
+# Version: 0.2.1
 # Fundation: Virgil@copyright.org
 
 import os
@@ -30,7 +30,7 @@ def check_system():
     counter1 = 0 
     while counter1 < 6:
         time.sleep(1)
-        print("===========================================================================================")
+        print('{:=^59}'.format("Checking..."))
         counter1 += 1
     time.sleep(3)
     print('Welcome to use my scripts,hope to help you')
@@ -58,7 +58,7 @@ def handle_packages(pack_information):
             packages_installed.close()                              
             installed_version = str(result_installed).split(" ")[-1]
             final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
-            print("===========================================================================================")
+            print('{:=^59}'.format("Line"))
 
 
             if installed_version == '[]':
@@ -77,7 +77,7 @@ def handle_packages(pack_information):
         elif operation_system == "Linux":
             packages_installed = os.popen("pip list | grep " + package_names) 
             result_installed = packages_installed.readlines()     
-            packages_installed.close()                              
+            packages_installed.close()
             installed_version = str(result_installed).split(" ")[-1]
             final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
 
@@ -96,7 +96,7 @@ def handle_packages(pack_information):
 
 def counter_process(runtime):
     scale = 100
-    print("===========================================================================================")
+    print('{:=^59}'.format("Line"))
     print("Start downloading the python packages".center(scale // 2, "-"))
     for i in range(scale + 1):
         conuter1 = ">" * i
