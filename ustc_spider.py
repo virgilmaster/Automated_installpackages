@@ -49,7 +49,7 @@ def ustc_downloader(pack_information):
             time.sleep(5)
             begin_time = time.time()
             os.system("pip install " + package_result.replace(",","") + " -i " + ustc_link + " --trusted-host " + ustc_domain)
-            print('{:>^49}'.format(">"))
+            print('{:>^59}'.format(">"))
             end_time  = time.time()
             print("The total time is: %s" % (end_time - begin_time))
 
