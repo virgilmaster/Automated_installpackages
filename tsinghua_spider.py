@@ -3,7 +3,6 @@ import requests
 from jmespath import search
 import time
 import platform
-import logging
 
 
 def read_requirements1(file_name):
@@ -43,7 +42,7 @@ def tsinghua_downloader(pack_information):
         code_tsinghua = r_tsinghua.status_code
         if code_tsinghua != 200:
             print("tsinhua's requests is error")
-            #raise Exception("tsinghua can not download the resources")
+            raise Exception("tsinghua can not download the resources")
         else:
             print("Perpare to download the resources!!!")
             time.sleep(5)
