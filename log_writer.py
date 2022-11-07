@@ -48,27 +48,28 @@ def log_record(operation_system,pack_information):
         os.mkdir(download_dir)
         if not os.path.exists(log_path):
             os.chdir(download_dir)
-            
+            log_builder = logging.getLogger()
+            log_builder.setLevel(logging.INFO)
+            current_time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+            file_hand = logging.FileHandler(filename="download_" + c_t + ".log",mode='a',encoding='utf-8')
+            log_builder.addHandler(file_hand)
 
             numbers = int(final_num)
             j = 0
-            while j < numbers-1: 
-            #for i in range(numbers):  
+            while j < numbers: 
                 package_detail = str(pack_information[j]) 
                 package_result = package_detail.split("'")[1].split("'")[0]
                 package_names = package_result.split("==")[0]  
                 package_version = package_result.split("==")[1]
+                #log_builder.info((str(username) + " try to downloading the " + package_names + " and the version is " + package_version + " at " + current_time))
+                log_builder.warning((str(username) + " xxx.spider downloading the " + package_names + " is failure " + package_version + " at " + current_time))
                 j += 1
                 pass
-                i = 0
-                while i <= numbers:
-                    current_time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
-                    log_builder = logging.getLogger()
-                    log_builder.setLevel(logging.INFO)
-                    file_hand = logging.FileHandler(filename="download_" + c_t + ".log",mode='a',encoding='utf-8')
-                    log_builder.addHandler(file_hand)
-                    log_builder.info((str(username) + " try to downloading the " + package_names + " and the version is " + package_version + " at " + current_time))
-                    i += numbers
+                # i = 0
+                # while i <= numbers:
+                
+                
+                # i += numbers
             
     
 
