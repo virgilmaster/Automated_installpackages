@@ -1,15 +1,19 @@
 # Author: Virgil.babala
-# Functions: To download the python packages from internet automactically
+# Functions: To download the python packages from internet automactically,use crontab to check the version it will install backend and automatically.
 # Email-address: 691267837@qq.com
 # Date: 2022/11/07
-# Version: 0.2.2
-# Fundation: Virgil@copyright.org
+# Version: 0.2.6
+# Fundation: Virgil-LovePython@copyright.org
+# Inspirational quotes: Cyan is made from blue,but it's more brighter than blue!!!
+
 
 import os
 import re,string
 import time
 import datetime
 import platform
+
+
 
 
 
@@ -43,12 +47,9 @@ def handle_packages(pack_information):
         converted_result = package_result.split(",")[0]
         package_names = package_result.split("==")[0]  
         package_version = package_result.split("==")[1]
+        
 
 
-        # with open("Record.log","w") as donwload_file: 
-        #     current_time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
-        #     donwload_file.write(str(username) + " have downloaded the " + package_names + " at time: " + current_time)
-        #     donwload_file.close()
         final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
 
         if operation_system == "Windows":
@@ -63,14 +64,18 @@ def handle_packages(pack_information):
             if installed_version == '[]':
                 print(package_names +  " have not be installed")
                 print("Start launch the web_spiders,downloading the new " + package_names)
-                #os.system("python download_queue.py")
+                os.system("python log_writer.py")
+                time.sleep(5)
+                os.system("python download_queue.py")
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
 
             else:
                 print("The packages's version is " + installed_version)
                 print("Start to change " + package_names + "'s version,plz wait a moment~.~")
-                #os.system("python download_queue.py")
+                os.system("python log_writer.py")
+                time.sleep(5)
+                os.system("python download_queue.py")
 
 
         elif operation_system == "Linux":
@@ -84,12 +89,17 @@ def handle_packages(pack_information):
             if installed_version == '[]':
                 print(package_names +  " have not be installed")
                 print("Start launch the web_spiders,downloading the new " + package_names)
+                os.system("python log_writer.py")
+                time.sleep(5)
                 os.system("python download_queue.py")
+                
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
             else:
                 print("The packages's version is " + installed_version)
                 print("Start to change" + package_names + "'s version,plz wait a moment~.~")
+                os.system("python log_writer.py")
+                time.sleep(5)
                 os.system("python download_queue.py")
 
 
@@ -109,9 +119,9 @@ def counter_process(runtime):
 if __name__ == "__main__":
     start_counter = time.perf_counter()
     print("Begin time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-    file_name = 'requirements.txt'
-    read_requirements(file_name)
+    file_name = "requirements.txt"
     operation_system = platform.system()
+    read_requirements(file_name)
     pack_information = read_requirements(file_name)
     check_system()
     if operation_system == "Windows":
