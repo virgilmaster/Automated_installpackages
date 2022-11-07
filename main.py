@@ -1,17 +1,16 @@
 # Author: Virgil.babala
 # Functions: To download the python packages from internet automactically
 # Email-address: 691267837@qq.com
-# Date: 2022/11/06
-# Version: 0.2.1
+# Date: 2022/11/07
+# Version: 0.2.2
 # Fundation: Virgil@copyright.org
 
 import os
 import re,string
 import time
 import datetime
-import sys
 import platform
-import logging
+
 
 
 def read_requirements(file_name):
@@ -30,7 +29,7 @@ def check_system():
     counter1 = 0 
     while counter1 < 6:
         time.sleep(1)
-        print('{:=^59}'.format("Checking..."))
+        print('{:=^89}'.format("Checking"))
         counter1 += 1
     time.sleep(3)
     print('Welcome to use my scripts,hope to help you')
@@ -46,10 +45,10 @@ def handle_packages(pack_information):
         package_version = package_result.split("==")[1]
 
 
-        with open("Record.log","w") as donwload_file: 
-            current_time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
-            donwload_file.write(str(username) + " have downloaded the " + package_names + " at time: " + current_time)
-            donwload_file.close()
+        # with open("Record.log","w") as donwload_file: 
+        #     current_time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+        #     donwload_file.write(str(username) + " have downloaded the " + package_names + " at time: " + current_time)
+        #     donwload_file.close()
         final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
 
         if operation_system == "Windows":
@@ -58,20 +57,20 @@ def handle_packages(pack_information):
             packages_installed.close()                              
             installed_version = str(result_installed).split(" ")[-1]
             final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
-            print('{:=^59}'.format("Line"))
+            print('{:=^89}'.format("Line"))
 
 
             if installed_version == '[]':
                 print(package_names +  " have not be installed")
                 print("Start launch the web_spiders,downloading the new " + package_names)
-                os.system("python download_queue.py")
+                #os.system("python download_queue.py")
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
 
             else:
                 print("The packages's version is " + installed_version)
                 print("Start to change " + package_names + "'s version,plz wait a moment~.~")
-                os.system("python download_queue.py")
+                #os.system("python download_queue.py")
 
 
         elif operation_system == "Linux":
@@ -96,7 +95,7 @@ def handle_packages(pack_information):
 
 def counter_process(runtime):
     scale = 100
-    print('{:=^59}'.format("Line"))
+    print('{:=^89}'.format("Line"))
     print("Start downloading the python packages".center(scale // 2, "-"))
     for i in range(scale + 1):
         conuter1 = ">" * i
