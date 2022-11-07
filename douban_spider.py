@@ -3,8 +3,6 @@ import requests
 from jmespath import search
 import time
 import platform
-import logging
-
 
 
 def read_requirements1(file_name):
