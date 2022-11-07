@@ -3,7 +3,7 @@ import requests
 from jmespath import search
 import time
 import platform
-
+import logging
 
 
 def read_requirements1(file_name):
@@ -43,13 +43,13 @@ def tsinghua_downloader(pack_information):
         code_tsinghua = r_tsinghua.status_code
         if code_tsinghua != 200:
             print("tsinhua's requests is error")
-            raise Exception("tsinghua can not download the resources")
+            #raise Exception("tsinghua can not download the resources")
         else:
             print("Perpare to download the resources!!!")
             time.sleep(5)
             begin_time = time.time()
             os.system("pip install " + package_result.replace(",","") + " -i " + tsinghua_link + " --trusted-host " + tsinghua_domain)
-            print('{:>^59}'.format(">"))
+            print('{:>^89}'.format(">"))
             end_time  = time.time()
             print("The total time is: %s" %(end_time - begin_time))
 
@@ -67,4 +67,3 @@ if __name__ == '__main__':
     read_requirements1(file_name)
     pack_information = read_requirements1(file_name)
     tsinghua_downloader(pack_information)
-
