@@ -6,7 +6,6 @@ from queue import Queue
 
 
 
-
 def installation_packages(x):
     try:
         os.system('python' + " " + x)
