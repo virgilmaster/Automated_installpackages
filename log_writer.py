@@ -5,8 +5,6 @@ from main import platform
 from main import datetime
 
 
-
-
 def read_requirements2(file_name):
     pack_information = []  
     file = open(file_name,'r') 
@@ -43,7 +41,7 @@ def log_record(operation_system,pack_information):
         download_dir = path_result + '/downloadlog'
         log_path = download_dir + "download_" + c_t + ".log"
 
-    # Althought this function is very complex,but finally i have finished.I feel very excited.Hard to say it by words.All the things i done,it's worth to do.
+
     if not os.path.exists(download_dir):
         os.mkdir(download_dir)
         if not os.path.exists(log_path):
@@ -61,17 +59,10 @@ def log_record(operation_system,pack_information):
                 package_result = package_detail.split("'")[1].split("'")[0]
                 package_names = package_result.split("==")[0]  
                 package_version = package_result.split("==")[1]
-                #log_builder.info((str(username) + " try to downloading the " + package_names + " and the version is " + package_version + " at " + current_time))
-                log_builder.warning((str(username) + " xxx.spider downloading the " + package_names + " is failure " + package_version + " at " + current_time))
+                log_builder.info((str(username) + " try to downloading the " + package_names + " and the version is " + package_version + " at " + current_time))
                 j += 1
                 pass
-                # i = 0
-                # while i <= numbers:
-                
-                
-                # i += numbers
-            
-    
+
 
 
 if __name__ == '__main__':
