@@ -33,13 +33,15 @@ def datafresh(filename):
             action_result = str(reader[x]).split(" ")[1:4]
             user_result = str(reader[x]).split(" ")[0]
             time_result = str(reader[x]).split(" ")[12:14]
-            object_result = str(reader[x]).split(" ")[5]
-            # print(action_result)
-            # print(user_result)
-            # print(time_result)
-            print(object_result)
+            package_result = str(reader[x]).split(" ")[5]  
+            log = {
+                'username' : user_result,
+                'actions' : action_result,
+                'time' : time_result,
+                'package' : package_result
+            }
+            print(log)
             x += 1
-
 
 
 if __name__ == '__main__':
