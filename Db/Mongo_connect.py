@@ -1,5 +1,5 @@
 import pymongo
- import datetime
+import datetime
 import os 
 import platform
 
@@ -15,11 +15,6 @@ def connection(db_port):
 def datafresh(filename):
     os.getcwd()
     os.chdir('downloadlog')
-    with open(filename,"r",encoding="utf-8") as f:
-        reader = f.readlines()
-        print(type(reader))
-        print(reader[1])
-
     operation_system = platform.system()
     if operation_system == 'Windows':
         log_num = os.popen('type' + ' ' + filename + "| " + 'find /v /c""')
@@ -32,6 +27,12 @@ def datafresh(filename):
         output_num = log_num.readlines()
         final_num = str(output_num[0]).replace("\n",'')
         log_num.close()
+    with open(filename,"r",encoding="utf-8") as f:
+        reader = f.readlines()
+        x = 0
+        while x < int(final_num):
+            print(reader[x])
+            x += 1
 
 
 
