@@ -26,7 +26,6 @@ if __name__ == '__main__':
     j = 0
     while j < loop_num:
         tk = threading.Thread(target=installation_packages, args=(tasklist[j],))
-        tk.setDaemon(True)
         tk.start()
         time.sleep(10)
         j += 1
