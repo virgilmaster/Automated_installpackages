@@ -1,7 +1,5 @@
 import pymongo
-import time 
-import datetime
-import csv
+ import datetime
 import os 
 import platform
 
