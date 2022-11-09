@@ -21,7 +21,6 @@ def datafresh(filename):
         output_num = log_num.readlines()
         final_num = str(output_num[0]).replace("\n",'')
         log_num.close()
-        print(final_num)
     elif operation_system == 'Linux':
         log_num = os.popen('cat' + filename + '| wc -l')
         output_num = log_num.readlines()
@@ -31,7 +30,14 @@ def datafresh(filename):
         reader = f.readlines()
         x = 0
         while x < int(final_num):
-            print(reader[x])
+            action_result = str(reader[x]).split(" ")[1:4]
+            user_result = str(reader[x]).split(" ")[0]
+            time_result = str(reader[x]).split(" ")[12:14]
+            object_result = str(reader[x]).split(" ")[5]
+            # print(action_result)
+            # print(user_result)
+            # print(time_result)
+            print(object_result)
             x += 1
 
 
