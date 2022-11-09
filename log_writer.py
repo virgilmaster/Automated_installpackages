@@ -5,6 +5,8 @@ from main import platform
 from main import datetime
 
 
+
+
 def read_requirements2(file_name):
     pack_information = []  
     file = open(file_name,'r') 
@@ -41,28 +43,48 @@ def log_record(operation_system,pack_information):
         download_dir = path_result + '/downloadlog'
         log_path = download_dir + "download_" + c_t + ".log"
 
-
+    
     if not os.path.exists(download_dir):
         os.mkdir(download_dir)
-        if not os.path.exists(log_path):
-            os.chdir(download_dir)
-            log_builder = logging.getLogger()
-            log_builder.setLevel(logging.INFO)
-            current_time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
-            file_hand = logging.FileHandler(filename="download_" + c_t + ".log",mode='a',encoding='utf-8')
-            log_builder.addHandler(file_hand)
+        os.chdir(download_dir)
+        log_builder = logging.getLogger()
+        log_builder.setLevel(logging.INFO)
+        current_time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+        file_hand = logging.FileHandler(filename="download_" + c_t + ".log",mode='a',encoding='utf-8')
+        log_builder.addHandler(file_hand)
 
-            numbers = int(final_num)
-            j = 0
-            while j < numbers: 
-                package_detail = str(pack_information[j]) 
-                package_result = package_detail.split("'")[1].split("'")[0]
-                package_names = package_result.split("==")[0]  
-                package_version = package_result.split("==")[1]
-                log_builder.info((str(username) + " try to downloading the " + package_names + " and the version is " + package_version + " at " + current_time))
-                j += 1
-                pass
+        numbers = int(final_num)
+        j = 0
+        while j < numbers: 
+            package_detail = str(pack_information[j]) 
+            package_result = package_detail.split("'")[1].split("'")[0]
+            package_names = package_result.split("==")[0]  
+            package_version = package_result.split("==")[1]
+            log_builder.info((str(username) + " try to downloading the " + package_names + " and the version is " + package_version + " at " + current_time))
+            j += 1
+            
+    else:
+        os.chdir(download_dir)
+        log_builder = logging.getLogger()
+        log_builder.setLevel(logging.INFO)
+        current_time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+        file_hand = logging.FileHandler(filename="download_" + c_t + ".log",mode='a',encoding='utf-8')
+        log_builder.addHandler(file_hand)
 
+        numbers = int(final_num)
+        j = 0
+        while j < numbers: 
+            package_detail = str(pack_information[j]) 
+            package_result = package_detail.split("'")[1].split("'")[0]
+            package_names = package_result.split("==")[0]  
+            package_version = package_result.split("==")[1]
+            log_builder.info((str(username) + " try to downloading the " + package_names + " and the version is " + package_version + " at " + current_time))
+            j += 1
+
+            
+    
+
+    
 
 
 if __name__ == '__main__':
