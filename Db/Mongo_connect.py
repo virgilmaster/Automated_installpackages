@@ -4,17 +4,15 @@ import os
 import platform
 
 
-# username  actions  time  object  details
-def connection(db_port):
-    pg = pymongo.MongoClient
-    mongo_client = pg('XXX.XXX.XXX.XXX',db_port)  # Use your own ip address for mongo
-    data_base = mongo_client['Daily_working']
-    collection_table = data_base['Download_record']
 
-
-def datafresh(filename):
+def datafresh(filename,db_port):
     os.getcwd()
     os.chdir('downloadlog')
+    pg = pymongo.MongoClient
+    mongo_client = pg('XXX.XXX.XXX.XXX',db_port) 
+    data_base = mongo_client['Daily_working']
+    collection_table = data_base['Download_record']
+    collection_table.create_index("recorder_log")
     operation_system = platform.system()
     if operation_system == 'Windows':
         log_num = os.popen('type' + ' ' + filename + "| " + 'find /v /c""')
@@ -41,12 +39,16 @@ def datafresh(filename):
                 'package' : package_result
             }
             print(log)
+            insert_result = collection_table.insert_one(log)
             x += 1
+        
 
 
 if __name__ == '__main__':
     c_t = str(datetime.datetime.now().strftime('%Y%m%d'))
     filename = "download_" + c_t + ".log"
-    db_port = int('XXXX') # Use your own port 
-    connection(db_port)
-    datafresh(filename)
+    print(filename)
+    db_port = int('XXX')
+    datafresh(filename,db_port)
+    # log = datafresh(filename)
+    # cleandata(log,db_port)
