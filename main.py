@@ -135,7 +135,7 @@ if __name__ == "__main__":
         command_username = os.popen('whoami')
         username = command_username.read()
         output_num = pack_num.readlines()
-        final_num = str(output_num[0]).replace("\n",'')
+        final_num = str(output_num[0]).replace("\\n",'').replace('\n','')
         command_username.close()
         pack_num.close()
     handle_packages(pack_information)
