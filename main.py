@@ -1,18 +1,8 @@
-# Author: Virgil.babala
-# Functions: To download the python packages from internet automactically,use crontab to check the version it will install backend and automatically.
-# Email-address: 691267837@qq.com
-# Date: 2022/11/07
-# Version: 0.2.6
-# Fundation: Virgil-LovePython@copyright.org
-# Inspirational quotes: Cyan is made from blue,but it's more brighter than blue!!!
-
-
 import os
 import re,string
 import time
 import datetime
 import platform
-
 
 
 
