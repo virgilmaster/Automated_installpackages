@@ -37,7 +37,7 @@ def log_record(operation_system,pack_information):
         username = command_username.read()
         pack_num = os.popen('cat requirements.txt | wc -l"')
         output_num = pack_num.readlines()
-        final_num = str(output_num[0]).replace("\n",'')
+        final_num = str(output_num[0]).replace('\\n','').replace('\n','')
         pack_num.close()
         c_t = str(datetime.datetime.now().strftime('%Y%m%d'))
         download_dir = path_result + '/downloadlog'
