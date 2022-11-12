@@ -11,8 +11,9 @@ class files:
 
     @property
     def windowsfile(self):
+        filename = self.filename
         self.op == "Windows"
-        pack_num = os.popen('type requirements.txt | find /v /c""')
+        pack_num = os.popen('type' + ' ' + filename + '| find /v /c""')
         username = os.getlogin()
         output_num = pack_num.readlines()
         final_num = str(output_num[0]).replace("\n", '')
