@@ -15,7 +15,7 @@ class spiders:
 
     def downloader(self):
         os_result = platform.system()
-        file_name = filesdetails(os_result,'requirements.txt')
+        file_name = filesdetails(str(os_result),'requirements.txt')
         final_num = file_name.counter
         pack_info = file_name.readinfo
         numb = int(final_num)
@@ -23,9 +23,10 @@ class spiders:
         for i in range(numb):
             package_detail = str(pack_info[i])
             package_result = package_detail.split("'")[1].split("'")[0]
-            download_pool = mirrors(final_names)
-            domain = str(download_pool).split(' ')[1].replace("'", "").replace(",", "")
-            link = str(download_pool).split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
+            download_pool = mirrors(str(final_names))
+            final_pools = download_pool.mirrorspools
+            domain = str(final_pools).split(' ')[1].replace("'", "").replace(",", "")
+            link = str(final_pools).split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
             resp = requests.get('http://' + domain)
             code_result = resp.status_code
             if code_result != 200:
@@ -41,5 +42,4 @@ class spiders:
                 print("The total time is: %s" % (end_time - begin_time))
 
 
-a = spiders('aliyun')
-a.downloader()
+
