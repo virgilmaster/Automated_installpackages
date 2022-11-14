@@ -74,6 +74,6 @@ def log_record(operation_system,pack_information):
 
 if __name__ == '__main__':
     files_read = filesdetails('Windows','requirements.txt')
-    pack_information = files_read.readlines
+    pack_information = files_read.readinfo
     operation_system = platform.system()
     log_record(operation_system,pack_information)
