@@ -1,6 +1,6 @@
 # Author: Virgil.He
 # Date: 2022/11/14
-# Version: 0.2.7
+# Version: 0.2.9
 
 
 import os
@@ -23,7 +23,8 @@ def check_system():
     print('Welcome to use my scripts,hope to help you')
     print('WOW, your system is: ' + operation_system + '!!!')
 
-def handle_packages(pack_information,final_num):
+def handle_packages(pack_information):
+    final_num = files_read.counter
     numbers = int(final_num)  
     for i in range(numbers):  
         package_detail = str(pack_information[i]) 
@@ -31,9 +32,6 @@ def handle_packages(pack_information,final_num):
         converted_result = package_result.split(",")[0]
         package_names = package_result.split("==")[0]  
         package_version = package_result.split("==")[1]
-        
-
-
         final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
 
         if operation_system == "Windows":
@@ -63,6 +61,7 @@ def handle_packages(pack_information,final_num):
 
 
         elif operation_system == "Linux":
+            os.system('alias python=' + 'python3')
             packages_installed = os.popen("pip list | grep " + package_names) 
             result_installed = packages_installed.readlines()     
             packages_installed.close()
@@ -105,12 +104,10 @@ if __name__ == "__main__":
     start_counter = time.perf_counter()
     print("Begin time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     files_read = filesdetails('Windows','requirements.txt')
-    file_name = "requirements.txt"
     operation_system = platform.system()
-    pack_information = files_read.readlines
-    final_num = files_read.counter
+    pack_information = files_read.readinfo
     check_system()
-    handle_packages(pack_information,final_num)
+    handle_packages(pack_information)
     print("End time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     end_counter = time.perf_counter()
     runtime = end_counter - start_counter
