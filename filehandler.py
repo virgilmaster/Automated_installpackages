@@ -23,7 +23,7 @@ class filesdetails:
         return final_num
 
     @property
-    def readlines(self):
+    def readinfo(self):
         filename = self.filename
         pack_information = []  
         file = open(filename,'r') 
