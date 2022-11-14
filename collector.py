@@ -14,9 +14,10 @@ class spiders:
         
 
     def downloader(self):
-        file_name = filesdetails('Windows','requirements.txt')
+        os_result = platform.system()
+        file_name = filesdetails(os_result,'requirements.txt')
         final_num = file_name.counter
-        pack_info = file_name.readlines
+        pack_info = file_name.readinfo
         numb = int(final_num)
         for i in range(numb):
             package_detail = str(pack_info[i])
@@ -39,5 +40,4 @@ class spiders:
                 print("The total time is: %s" % (end_time - begin_time))
 
 
-# a = spiders('aliyun')
-# a.downloader()
+
