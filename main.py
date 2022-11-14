@@ -99,7 +99,7 @@ if __name__ == "__main__":
     start_counter = time.perf_counter()
     os_result = platform.system()
     print("Begin time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-    files_read = filesdetails(os_result,'requirements.txt')
+    files_read = filesdetails(str(os_result),'requirements.txt')
     operation_system = platform.system()
     pack_information = files_read.readinfo
     check_system()
