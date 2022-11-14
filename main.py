@@ -1,21 +1,15 @@
+# Author: Virgil.He
+# Date: 2022/11/14
+# Version: 0.2.7
+
+
 import os
 import re,string
 import time
 import datetime
 import platform
+from filehandler import filesdetails
 
-
-
-
-def read_requirements(file_name):
-    pack_information = []  
-    file = open(file_name,'r') 
-    file_pack_information = file.readlines()
-    for row in file_pack_information:  
-        tmp_list = row.split(' ')
-        tmp_list[-1] = tmp_list[-1].replace('\n',',')
-        pack_information.append(tmp_list)
-    return pack_information
 
 
 def check_system():
@@ -29,7 +23,7 @@ def check_system():
     print('Welcome to use my scripts,hope to help you')
     print('WOW, your system is: ' + operation_system + '!!!')
 
-def handle_packages(pack_information):
+def handle_packages(pack_information,final_num):
     numbers = int(final_num)  
     for i in range(numbers):  
         package_detail = str(pack_information[i]) 
@@ -55,8 +49,8 @@ def handle_packages(pack_information):
                 print(package_names +  " have not be installed")
                 print("Start launch the web_spiders,downloading the new " + package_names)
                 os.system("python log_writer.py")
-                time.sleep(5)
-                os.system("python download_queue.py")
+                time.sleep(1)
+                #os.system("python download_queue.py")
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
 
@@ -64,8 +58,8 @@ def handle_packages(pack_information):
                 print("The packages's version is " + installed_version)
                 print("Start to change " + package_names + "'s version,plz wait a moment~.~")
                 os.system("python log_writer.py")
-                time.sleep(5)
-                os.system("python download_queue.py")
+                time.sleep(1)
+                #os.system("python download_queue.py")
 
 
         elif operation_system == "Linux":
@@ -80,17 +74,18 @@ def handle_packages(pack_information):
                 print(package_names +  " have not be installed")
                 print("Start launch the web_spiders,downloading the new " + package_names)
                 os.system("python log_writer.py")
-                time.sleep(5)
-                os.system("python download_queue.py")
-                
+                time.sleep(1)
+                #os.system("python download_queue.py")
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
             else:
                 print("The packages's version is " + installed_version)
                 print("Start to change" + package_names + "'s version,plz wait a moment~.~")
+                os.system("pip uninstall" + " " + package_names)
+                time.sleep(1)
                 os.system("python log_writer.py")
-                time.sleep(5)
-                os.system("python download_queue.py")
+                time.sleep(1)
+                #os.system("python download_queue.py")
 
 
 def counter_process(runtime):
@@ -109,26 +104,13 @@ def counter_process(runtime):
 if __name__ == "__main__":
     start_counter = time.perf_counter()
     print("Begin time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+    files_read = filesdetails('Windows','requirements.txt')
     file_name = "requirements.txt"
     operation_system = platform.system()
-    read_requirements(file_name)
-    pack_information = read_requirements(file_name)
+    pack_information = files_read.readlines
+    final_num = files_read.counter
     check_system()
-    if operation_system == "Windows":
-        pack_num = os.popen('type requirements.txt | find /v /c""')
-        username = os.getlogin()
-        output_num = pack_num.readlines()
-        final_num = str(output_num[0]).replace("\n",'')
-        pack_num.close()
-    elif operation_system == "Linux":
-        pack_num = os.popen('cat requirements.txt | wc -l"')
-        command_username = os.popen('whoami')
-        username = command_username.read()
-        output_num = pack_num.readlines()
-        final_num = str(output_num[0]).replace("\\n",'').replace('\n','')
-        command_username.close()
-        pack_num.close()
-    handle_packages(pack_information)
+    handle_packages(pack_information,final_num)
     print("End time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     end_counter = time.perf_counter()
     runtime = end_counter - start_counter
