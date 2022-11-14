@@ -19,17 +19,18 @@ class spiders:
         final_num = file_name.counter
         pack_info = file_name.readinfo
         numb = int(final_num)
+        final_names = self.names
         for i in range(numb):
             package_detail = str(pack_info[i])
             package_result = package_detail.split("'")[1].split("'")[0]
-            download_pool = mirrors(self.names)
+            download_pool = mirrors(final_names)
             domain = str(download_pool).split(' ')[1].replace("'", "").replace(",", "")
             link = str(download_pool).split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
             resp = requests.get('http://' + domain)
             code_result = resp.status_code
             if code_result != 200:
-                print(self.names + ' ' + 'requests error')
-                raise Exception(self.names + ' ' + 'can not download the resources')
+                print(final_names + ' ' + 'requests error')
+                raise Exception(final_names + ' ' + 'can not download the resources')
             else:
                 print('Perpare to download the resources!!!')
                 time.sleep(5)
@@ -40,4 +41,5 @@ class spiders:
                 print("The total time is: %s" % (end_time - begin_time))
 
 
-
+a = spiders('aliyun')
+a.downloader()
