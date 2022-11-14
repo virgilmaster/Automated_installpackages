@@ -36,7 +36,7 @@ class spiders:
                 print('Perpare to download the resources!!!')
                 time.sleep(5)
                 begin_time = time.time()
-                os.system("pip install " + package_result.replace(",","") + " -i " + link + " --trusted-host " + domian)
+                os.system("pip install " + package_result.replace(",","") + " -i " + link + " --trusted-host " + domain)
                 print('{:>^89}'.format(">"))
                 end_time  = time.time()
                 print("The total time is: %s" % (end_time - begin_time))
