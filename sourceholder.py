@@ -1,11 +1,10 @@
-from jmespath import search
-
 class mirrors:
     def __init__(self,name):
         self.name = name
 
     @property
     def mirrorspools(self):
+        from jmespath import search
         mirrors_pools = {"aliyun": [
     {"domain": "mirrors.aliyun.com","link":"http://mirrors.aliyun.com/pypi/simple/"}],
     "ustc":[
