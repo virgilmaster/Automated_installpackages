@@ -9,8 +9,8 @@ from filehandler import filesdetails
 
 
 class spiders:
-    def __init__(self,sdname):
-        self.sdname = sdname
+    def __init__(self,names):
+        self.names = names
         
 
     def downloader(self):
@@ -22,14 +22,14 @@ class spiders:
         for i in range(numb):
             package_detail = str(pack_info[i])
             package_result = package_detail.split("'")[1].split("'")[0]
-            download_pool = mirrors(self.sdname)
+            download_pool = mirrors(self.names)
             domain = str(download_pool).split(' ')[1].replace("'", "").replace(",", "")
             link = str(download_pool).split(' ')[3].replace("'", "").replace("}", "").replace("]", "")
             resp = requests.get('http://' + domain)
             code_result = resp.status_code
             if code_result != 200:
-                print(self.sdname + ' ' + 'requests error')
-                raise Exception(self.sdname + ' ' + 'can not download the resources')
+                print(self.names + ' ' + 'requests error')
+                raise Exception(self.names + ' ' + 'can not download the resources')
             else:
                 print('Perpare to download the resources!!!')
                 time.sleep(5)
