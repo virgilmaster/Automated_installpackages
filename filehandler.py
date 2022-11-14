@@ -10,17 +10,16 @@ class filesdetails:
     @property
     def counter(self):
         filename = self.filename
-        if self.op == platform.system():
+        if self.op == 'Windows':
             pack_num = os.popen('type' + ' ' + filename + '| find /v /c""')
             output_num = pack_num.readlines()
             final_num = str(output_num[0]).replace("\n", '')
-            pack_num.close()         
-        elif self.op == platform.system():
-            pack_num = os.popen('cat requirements.txt | wc -l"')         
+            pack_num.close()      
+        elif self.op == 'Linux':
+            pack_num = os.popen('cat requirements.txt | wc -l')         
             output_num = pack_num.readlines()
             final_num = str(output_num[0]).replace("\\n", '').replace('\n', '')
             pack_num.close()
-            
         return final_num
 
     @property
