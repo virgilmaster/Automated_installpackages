@@ -1,4 +1,3 @@
-from filehandler import filesdetails
 import os
 import requests
 from jmespath import search
@@ -10,9 +9,9 @@ from filehandler import filesdetails
 
 
 class spiders:
-    def __init__(self,sdname,sdmode):
+    def __init__(self,sdname):
         self.sdname = sdname
-        self.sdmode = sdmode
+        
 
     def downloader(self):
         file_name = filesdetails('Windows','requirements.txt')
@@ -34,11 +33,11 @@ class spiders:
                 print('Perpare to download the resources!!!')
                 time.sleep(5)
                 begin_time = time.time()
-                os.system("pip install " + package_result.replace(",","") + " -i " + aliyun_link + " --trusted-host " + aliyun_domain)
+                os.system("pip install " + package_result.replace(",","") + " -i " + link + " --trusted-host " + domian)
                 print('{:>^89}'.format(">"))
                 end_time  = time.time()
                 print("The total time is: %s" % (end_time - begin_time))
 
 
-a = spiders('aliyun','thread')
-a.downloader()
+# a = spiders('aliyun')
+# a.downloader()
