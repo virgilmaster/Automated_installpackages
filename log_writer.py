@@ -23,7 +23,7 @@ def log_record(operation_system,pack_information):
         path_result = os.getcwd()
         command_username = os.popen('whoami')
         username = command_username.read()
-        pack_num = os.popen('cat requirements.txt | wc -l"')
+        pack_num = os.popen('cat requirements.txt | wc -l')
         output_num = pack_num.readlines()
         final_num = str(output_num[0]).replace("\n",'')
         pack_num.close()
