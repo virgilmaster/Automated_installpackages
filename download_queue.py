@@ -12,8 +12,8 @@ def installation_packages(x):
         collect_name = spiders(x)
         collect_name.downloader()
 
-    except Exception as err:
-        print(err)
+    except Exception as error:
+        print(error)
 
     else:
         print("Failed to download the resource!!!")
