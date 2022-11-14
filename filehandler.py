@@ -18,11 +18,9 @@ class filesdetails:
             return final_num
 
         elif self.op == platform.system():
-            pack_num = os.popen('cat requirements.txt | wc -l"')
-            command_username = os.popen('whoami')           
+            pack_num = os.popen('cat requirements.txt | wc -l"')         
             output_num = pack_num.readlines()
             final_num = str(output_num[0]).replace("\\n", '').replace('\n', '')
-            command_username.close()
             pack_num.close()
             return final_num
 
