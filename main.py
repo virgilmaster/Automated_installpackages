@@ -1,6 +1,6 @@
 # Author: Virgil.He
 # Date: 2022/11/14
-# Version: 0.2.11
+# Version: 0.2.13
 
 
 import os
@@ -47,7 +47,6 @@ def handle_packages(pack_information):
                 print(package_names +  " have not be installed")
                 print("Start launch the web_spiders,downloading the new " + package_names)
                 os.system("python log_writer.py")
-                time.sleep(1)
                 #os.system("python download_queue.py")
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
@@ -56,7 +55,6 @@ def handle_packages(pack_information):
                 print("The packages's version is " + installed_version)
                 print("Start to change " + package_names + "'s version,plz wait a moment~.~")
                 os.system("python log_writer.py")
-                time.sleep(1)
                 #os.system("python download_queue.py")
 
 
@@ -73,7 +71,6 @@ def handle_packages(pack_information):
                 print(package_names +  " have not be installed")
                 print("Start launch the web_spiders,downloading the new " + package_names)
                 os.system("python log_writer.py")
-                time.sleep(1)
                 #os.system("python download_queue.py")
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
@@ -81,9 +78,7 @@ def handle_packages(pack_information):
                 print("The packages's version is " + installed_version)
                 print("Start to change" + package_names + "'s version,plz wait a moment~.~")
                 os.system("pip uninstall" + " " + package_names)
-                time.sleep(1)
                 os.system("python log_writer.py")
-                time.sleep(1)
                 #os.system("python download_queue.py")
 
 
