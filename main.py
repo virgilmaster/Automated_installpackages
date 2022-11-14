@@ -1,6 +1,6 @@
 # Author: Virgil.He
 # Date: 2022/11/14
-# Version: 0.2.9
+# Version: 0.2.11
 
 
 import os
@@ -102,8 +102,9 @@ def counter_process(runtime):
 
 if __name__ == "__main__":
     start_counter = time.perf_counter()
+    os_result = platform.system()
     print("Begin time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-    files_read = filesdetails('Windows','requirements.txt')
+    files_read = filesdetails(os_result,'requirements.txt')
     operation_system = platform.system()
     pack_information = files_read.readinfo
     check_system()
