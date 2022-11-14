@@ -3,12 +3,14 @@ import time
 from multiprocessing import Process,Lock
 import threading
 from queue import Queue
+from collector import spiders
 
 
 
 def installation_packages(x):
     try:
-        os.system('python' + " " + x)
+        collect_name = spiders(x)
+        collect_name.downloader()
 
     except Exception as err:
         print(err)
@@ -20,12 +22,14 @@ def installation_packages(x):
 
 
 if __name__ == '__main__':
-    tasklist = ['ali_spider.py','douban_spider.py','tsinghua_spider.py','ustc_spider.py']
+    tasklist = ['aliyun','tsinghua','ustc','douban']
     loop_num = len(tasklist)
     lock = Lock()
     j = 0
     while j < loop_num:
         tk = threading.Thread(target=installation_packages, args=(tasklist[j],))
+        #tk.setDaemon(True)
         tk.start()
+        #tk.join()
         time.sleep(10)
         j += 1
