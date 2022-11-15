@@ -1,8 +1,5 @@
-# 文件处理器
 from filehandler import filesdetails
-# 镜像大师
 from sourceholder import mirrors
-# 采集器
 from collector import spiders
 import threading
 import time
