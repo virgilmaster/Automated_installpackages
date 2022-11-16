@@ -1,6 +1,6 @@
 # Author: Virgil.She
 # Date: 2022/11/16
-# Version: 0.2.18
+# Version: 0.2.19
 # Introduction: A fans of python programming language
 
 import os
@@ -23,7 +23,7 @@ def check_system(operation_system):
     print('Your system is: ' + operation_system + '...')
 
 def handle_packages(pack_information):
-
+    
     final_num = files_read.counter
     numbers = int(final_num)
 
@@ -43,20 +43,30 @@ def handle_packages(pack_information):
             final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
             print('{:=^89}'.format("Line"))
 
-
+            #with open(r'uninstallpack.txt','w') as record:
+            #HashMap = {}
+            uninstall = []
             if installed_version == '[]':
                 print(package_names +  " have not be installed")
                 print("Start launch the webspiders,to download the new " + package_names)
+                uninstall.append(package_names)
+
                 #os.system("python download_queue.py")
+                # record = open(r'uninstallpack.txt','w')
+                # record.write(package_names)
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
 
             else:
                 print("The packages's version is " + installed_version)
                 print("Start to change " + package_names + "'s version,plz wait a moment~.~")
+                uninstall.append(package_names)
+                # record = open(r'uninstallpack.txt','w')
+                # record.write(package_names)
                 # os.system("pip uninstall" + " " + package_names)
                 #os.system("python download_queue.py")
-        
+            print(uninstall)    
+            
 
         elif operation_system == "Linux":
             os.system('alias python=' + 'python3')
@@ -67,7 +77,7 @@ def handle_packages(pack_information):
             final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
             print('{:=^89}'.format("Line"))
 
-           
+            #with open(r'uninstallpack.txt','w') as record:
             if installed_version == '[]':
                 print(package_names +  " have not be installed")
                 print("Start launch the webspiders,to download the new " + package_names)
@@ -105,7 +115,7 @@ if __name__ == "__main__":
     handle_packages(pack_information)
     try:
         from artist import logwriter
-        from beesfly import wizard
+        #from beesfly import wizard
         #from collector import spiders
     except ImportError as e:
         print(e)
