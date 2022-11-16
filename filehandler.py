@@ -57,7 +57,59 @@ class filesdetails:
             package_version = package_result.split("==")[1]
             final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
         # Self testing functions
+        # ======================================================
+        try:
+            import os
+        except ImportError as e:
+            print(e)
+        if os_result == "Windows":
+            packages_installed = os.popen("pip list | findstr " + package_names) 
+            result_installed = packages_installed.readlines()     
+            packages_installed.close()                              
+            installed_version = str(result_installed).split(" ")[-1]
+            final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
             
+
+            
+            #HashMap = {}
+            uninstall_list = []
+            if installed_version == '[]':
+                print(package_names +  " have not be installed")
+                print("Start launch the webspiders,to download the new " + package_names)
+                uninstall_list.append(package_names)
+
+  
+            elif final_installed == final_version:
+                print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
+
+            else:
+                print("The packages's version is " + installed_version)
+                print("Start to change " + package_names + "'s version,plz wait a moment~.~")
+                uninstall_list.append(package_names)
+               
+            print(uninstall_list)    
+            
+
+        elif os_result == "Linux":
+            packages_installed = os.popen("pip list | grep " + package_names) 
+            result_installed = packages_installed.readlines()     
+            packages_installed.close()
+            installed_version = str(result_installed).split(" ")[-1]
+            final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
+    
+
+        
+            if installed_version == '[]':
+                print(package_names +  " have not be installed")
+                print("Start launch the webspiders,to download the new " + package_names)
+                
+            elif final_installed == final_version:
+                print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
+            else:
+                print("The packages's version is " + installed_version)
+                print("Start to change" + package_names + "'s version,plz wait a moment~.~")
+              
+            return uninstall_list
 
 
 
