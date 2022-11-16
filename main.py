@@ -1,7 +1,7 @@
-# Author: Virgil.He
-# Date: 2022/11/14
-# Version: 0.2.13
-
+# Author: Virgil.She
+# Date: 2022/11/16
+# Version: 0.2.18
+# Introduction: A fans of python programming language
 
 import os
 import re,string
@@ -19,9 +19,8 @@ def check_system():
         time.sleep(1)
         print('{:=^89}'.format("Checking"))
         counter1 += 1
-    time.sleep(3)
-    print('Welcome to use my scripts,hope to help you')
-    print('WOW, your system is: ' + operation_system + '!!!')
+    time.sleep(1)
+    print('Your system is: ' + operation_system + '...')
 
 def handle_packages(pack_information):
     final_num = files_read.counter
@@ -34,6 +33,7 @@ def handle_packages(pack_information):
         package_version = package_result.split("==")[1]
         final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
 
+        
         if operation_system == "Windows":
             packages_installed = os.popen("pip list | findstr " + package_names) 
             result_installed = packages_installed.readlines()     
@@ -41,12 +41,17 @@ def handle_packages(pack_information):
             installed_version = str(result_installed).split(" ")[-1]
             final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
             print('{:=^89}'.format("Line"))
-
+            try:
+                from artist import logwriter
+                launcher = logwriter(operation_system,pack_information)
+                launcher.log_record()
+            except Warning as e:
+                print(e,'Something wrong with the module')
 
             if installed_version == '[]':
                 print(package_names +  " have not be installed")
-                print("Start launch the web_spiders,downloading the new " + package_names)
-                os.system("python log_writer.py")
+                print("Start launch the webspiders,to download the new " + package_names)
+                
                 #os.system("python download_queue.py")
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
@@ -54,9 +59,10 @@ def handle_packages(pack_information):
             else:
                 print("The packages's version is " + installed_version)
                 print("Start to change " + package_names + "'s version,plz wait a moment~.~")
-                os.system("python log_writer.py")
+                # os.system("pip uninstall" + " " + package_names)
+                
                 #os.system("python download_queue.py")
-
+        
 
         elif operation_system == "Linux":
             os.system('alias python=' + 'python3')
@@ -65,20 +71,24 @@ def handle_packages(pack_information):
             packages_installed.close()
             installed_version = str(result_installed).split(" ")[-1]
             final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
-
-
+            print('{:=^89}'.format("Line"))
+            try:
+                from artist import logwriter
+                launcher = logwriter(operation_system,pack_information)
+                launcher.log_record()
+            except Warning as e:
+                print(e,'Something wrong with the module')
+           
             if installed_version == '[]':
                 print(package_names +  " have not be installed")
-                print("Start launch the web_spiders,downloading the new " + package_names)
-                os.system("python log_writer.py")
+                print("Start launch the webspiders,to download the new " + package_names)
                 #os.system("python download_queue.py")
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
             else:
                 print("The packages's version is " + installed_version)
                 print("Start to change" + package_names + "'s version,plz wait a moment~.~")
-                os.system("pip uninstall" + " " + package_names)
-                os.system("python log_writer.py")
+                #os.system("pip uninstall" + " " + package_names)
                 #os.system("python download_queue.py")
 
 
