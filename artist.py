@@ -81,10 +81,3 @@ class logwriter():
 
 
 
-
-if __name__ == '__main__':
-    files_read = filesdetails('Windows','requirements.txt')
-    pack_information = files_read.readinfo
-    operation_system = platform.system()
-    launcher = logwriter(operation_system,pack_information)
-    launcher.log_record()
