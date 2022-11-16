@@ -27,7 +27,7 @@ class logwriter():
             pack_num.close()
             c_t = str(datetime.datetime.now().strftime('%Y%m%d'))
             download_dir = path_result + '\downloadlog'
-            
+            #log_path = download_dir + 'download_' + c_t + '.log'
 
         elif op_sys == "Linux":
             path_result = os.getcwd()
@@ -39,7 +39,7 @@ class logwriter():
             pack_num.close()
             c_t = str(datetime.datetime.now().strftime('%Y%m%d'))
             download_dir = path_result + '/downloadlog'
-            
+            #log_path = download_dir + 'download_' + c_t + '.log'
 
         
         if not os.path.exists(download_dir):
