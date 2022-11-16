@@ -12,7 +12,7 @@ from filehandler import filesdetails
 
 
 
-def check_system():
+def check_system(operation_system):
     print('Dear guests,begin to check your system: ')    
     counter1 = 0 
     while counter1 < 6:
@@ -23,12 +23,13 @@ def check_system():
     print('Your system is: ' + operation_system + '...')
 
 def handle_packages(pack_information):
+
     final_num = files_read.counter
-    numbers = int(final_num)  
+    numbers = int(final_num)
+
     for i in range(numbers):  
         package_detail = str(pack_information[i]) 
         package_result = package_detail.split("'")[1].split("'")[0]
-        converted_result = package_result.split(",")[0]
         package_names = package_result.split("==")[0]  
         package_version = package_result.split("==")[1]
         final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
@@ -41,17 +42,11 @@ def handle_packages(pack_information):
             installed_version = str(result_installed).split(" ")[-1]
             final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
             print('{:=^89}'.format("Line"))
-            try:
-                from artist import logwriter
-                launcher = logwriter(operation_system,pack_information)
-                launcher.log_record()
-            except Warning as e:
-                print(e,'Something wrong with the module')
+
 
             if installed_version == '[]':
                 print(package_names +  " have not be installed")
                 print("Start launch the webspiders,to download the new " + package_names)
-                
                 #os.system("python download_queue.py")
             elif final_installed == final_version:
                 print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
@@ -60,7 +55,6 @@ def handle_packages(pack_information):
                 print("The packages's version is " + installed_version)
                 print("Start to change " + package_names + "'s version,plz wait a moment~.~")
                 # os.system("pip uninstall" + " " + package_names)
-                
                 #os.system("python download_queue.py")
         
 
@@ -72,12 +66,7 @@ def handle_packages(pack_information):
             installed_version = str(result_installed).split(" ")[-1]
             final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
             print('{:=^89}'.format("Line"))
-            try:
-                from artist import logwriter
-                launcher = logwriter(operation_system,pack_information)
-                launcher.log_record()
-            except Warning as e:
-                print(e,'Something wrong with the module')
+
            
             if installed_version == '[]':
                 print(package_names +  " have not be installed")
@@ -112,8 +101,18 @@ if __name__ == "__main__":
     files_read = filesdetails(str(os_result),'requirements.txt')
     operation_system = platform.system()
     pack_information = files_read.readinfo
-    check_system()
+    check_system(operation_system)
     handle_packages(pack_information)
+    try:
+        from artist import logwriter
+        from beesfly import wizard
+        #from collector import spiders
+    except ImportError as e:
+        print(e)
+    # resource = spiders()
+    # resource.downloader()
+    launcher = logwriter(operation_system,pack_information)
+    launcher.log_record()
     print("End time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     end_counter = time.perf_counter()
     runtime = end_counter - start_counter
