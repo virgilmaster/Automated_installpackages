@@ -61,7 +61,7 @@ class filesdetails:
             final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
             version_list.append(package_version)
             j += 1
-        return final_version
+        return version_list
 
 
     @property
