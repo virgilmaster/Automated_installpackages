@@ -1,12 +1,10 @@
 class timebar:
-
     def __init__(self,start,end):
         self.start = start 
         self.end = end
 
 
     def counter_process(self):
-
         start = self.start
         end = self.end
         runtime = start - end
