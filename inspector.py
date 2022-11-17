@@ -28,15 +28,32 @@ class checker:
         # print(versionlist[1])
         """
         Test pass
+        Math teacher
+        Powershell can call Python!!! 
         """
-         
-         
-        # packages_installed = os.popen("pip list | findstr " + package_names) 
-        # result_installed = packages_installed.readlines()     
-        # packages_installed.close()                              
-        # installed_version = str(result_installed).split(" ")[-1]
-        # final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
-        # # if os_result == "Windows":
+        files_read = filesdetails(str(os_result),'requirements.txt')
+        final_num = files_read.counter
+        numbers = int(final_num)
+        if os_result == 'Windows':
+            for x in range(numbers):
+                packages_installed = os.popen('pip list | findstr' + ' ' + namelist[x]) 
+                result_installed = packages_installed.readlines()     
+                packages_installed.close()                              
+                installed_version = str(result_installed).split(" ")[-1]
+                final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
+                print(result_installed) # 结果测试
+
+
+        elif os_result == 'Linux':
+            for x in range(numbers):
+                packages_installed = os.popen('pip list | grep' + ' ' + namelist[x])
+                result_installed = packages_installed.readlines()     
+                packages_installed.close()                              
+                installed_version = str(result_installed).split(" ")[-1]
+                final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
+                print(result_installed)
+
+        # if os_result == "Windows":
 
 
         # elif os_result == "Linux":       
