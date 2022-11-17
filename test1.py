@@ -14,13 +14,14 @@ from inspector import checker
 files2 = filesdetails('Windows','requirements.txt')
 # print(files2.counter)
 # print(files2.readinfo)
-# print(files2.filefilter)
+print(files2.versionfilter)
+print(files2.namefilter)
+# import platform
+# os = platform.system()
+# file = 'requirements.txt'
+# files3 = checker(str(os),file)
+# print(files3.versioncheck)
 
-import platform
-os = platform.system()
-file = 'requirements.txt'
-files3 = checker(str(os),file)
-print(files3.versioncheck)
 # ali_result = mirrors('aliyun')
 # print(ali_result.mirrorspools)
 
