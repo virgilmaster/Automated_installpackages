@@ -3,6 +3,7 @@ class checker:
         self.opsys = opsys
         self.filename = filename
 
+    #@staticmethod
     @property
     def versioncheck(self):
         try:
@@ -42,7 +43,8 @@ class checker:
                 installed_version = str(result_installed).split(" ")[-1]
                 final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
                 print(result_installed) # 结果测试
-
+                print(type(result_installed))
+                
 
         elif os_result == 'Linux':
             for x in range(numbers):
