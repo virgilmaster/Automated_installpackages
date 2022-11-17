@@ -49,18 +49,17 @@ class filesdetails:
         try:
             import re,string
         except ImportWarning as e:
-            print('Dear guests your python lib have not re and string module,plz download from internet')
+            raise e
 
+        version_list = []
         j = 0
         while j < numbers:
-        #for i in range(numbers):  
             package_detail = str(pack_info[j]) 
             package_result = package_detail.split("'")[1].split("'")[0]
             package_names = package_result.split("==")[0]  
             package_version = package_result.split("==")[1]
             final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
-            #print(package_names)
-            #print(final_version)
+            version_list.append(package_version)
             j += 1
         return final_version
 
@@ -70,35 +69,24 @@ class filesdetails:
         try:
             import platform
             from filehandler import filesdetails
-
+            import re,string
         except ImportError as e:
-            print(e)
+            raise e 
 
         os_result = platform.system()
         result_pack = filesdetails(str(os_result),'requirements.txt')
         final_num = result_pack.counter
         pack_info = result_pack.readinfo
         numbers = int(final_num)
-        
-        try:
-            import re,string
-        except ImportWarning as e:
-            print('Dear guests your python lib have not re and string module,plz download from internet')
-
         j = 0
-        while j < numbers:
-        #for i in range(numbers):  
+        name_list = []
+        while j < numbers: 
             package_detail = str(pack_info[j]) 
             package_result = package_detail.split("'")[1].split("'")[0]
             package_names = package_result.split("==")[0]  
             package_version = package_result.split("==")[1]
             final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
-            #print(package_names)
-            #print(final_version)
+            name_list.append(package_names)
             j += 1
-        return package_names
-
-
-
-
+        return name_list
 
