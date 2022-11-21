@@ -1,16 +1,12 @@
 # Author: Virgil.She
 # Date: 2022/11/21
-# Version: 0.2.23
+# Version: 0.2.26
 # Introduction: A fans of python programming language
 
-import os
-import re,string
 import time,datetime
 import platform
 from filehandler import filesdetails
-from multiprocessing import Process,Lock
 import threading
-from queue import Queue
 from artist import logwriter
 from progessbar import timebar
 
@@ -24,72 +20,25 @@ def check_system(operation_system):
     time.sleep(1)
     print('Your system is: ' + operation_system + '...')
 
-def handle_packages(pack_information):
+def handle_packages():
     try:
-        # 导入巫师
-        #from beesfly import wizard
-        # 导入检查官
+        from beesfly import wizard
         from inspector import checker
+        from threading import Lock
     except ImportError as e:
         raise e
-    # 以下代码进行重构 使用类设计模式 进行全盘重构
-    # 启动 队列 中的线程任务 
-    # 线程的方法正确的应该是在这边进行 导入
-
-    final_num = files_read.counter
-    numbers = int(final_num)
-
-    for i in range(numbers):  
-        package_detail = str(pack_information[i]) 
-        package_result = package_detail.split("'")[1].split("'")[0]
-        package_names = package_result.split("==")[0]  
-        package_version = package_result.split("==")[1]
-        final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
-
-        
-        if operation_system == "Windows":
-            packages_installed = os.popen("pip list | findstr " + package_names) 
-            result_installed = packages_installed.readlines()     
-            packages_installed.close()                              
-            installed_version = str(result_installed).split(" ")[-1]
-            final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
-            print('{:=^89}'.format("Line"))
-
-            uninstall = []
-            if installed_version == '[]':
-                print(package_names +  " have not be installed")
-                print("Start launch the webspiders,to download the new " + package_names)
-                uninstall.append(package_names)
-            elif final_installed == final_version:
-                print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
-
-            else:
-                print("The packages's version is " + installed_version)
-                print("Start to change " + package_names + "'s version,plz wait a moment~.~")
-                uninstall.append(package_names)
-
-                
-            
-
-        elif operation_system == "Linux":
-            os.system('alias python=' + 'python3')
-            packages_installed = os.popen("pip list | grep " + package_names) 
-            result_installed = packages_installed.readlines()     
-            packages_installed.close()
-            installed_version = str(result_installed).split(" ")[-1]
-            final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
-            print('{:=^89}'.format("Line"))
-
-            if installed_version == '[]':
-                print(package_names +  " have not be installed")
-                print("Start launch the webspiders,to download the new " + package_names)
-                
-            elif final_installed == final_version:
-                print("The " + package_names + " is in the same version,no necessary to install " + package_names + " again")
-            else:
-                print("The packages's version is " + installed_version)
-                print("Start to change" + package_names + "'s version,plz wait a moment~.~")
-
+    tasklist = ['aliyun','tsinghua','ustc','douban']
+    loop_num = len(tasklist)
+    lock = Lock()
+    j = 0
+    file = 'requirements.txt'
+    witch = wizard(file)
+    caller = witch.spellmagic
+    while j < loop_num:
+        tk = threading.Thread(target=caller, args=(tasklist[j],))
+        tk.start()
+        lock.acquire()
+        j += 1
 
 if __name__ == "__main__":
     start_counter = time.perf_counter()
@@ -99,7 +48,8 @@ if __name__ == "__main__":
     operation_system = platform.system()
     pack_information = files_read.readinfo
     check_system(operation_system)
-    handle_packages(pack_information)
+    
+    handle_packages()
     launcher = logwriter(operation_system,pack_information)
     launcher.log_record()
     print("End time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
