@@ -6,14 +6,14 @@ class filesdetails:
     @property
     def counter(self):
         import os
-        filename = self.filename
+        file_name = self.filename
         if self.op == 'Windows':
-            pack_num = os.popen('type' + ' ' + filename + '| find /v /c""')
+            pack_num = os.popen('type' + ' ' + file_name + ' | find /v /c""')
             output_num = pack_num.readlines()
             final_num = str(output_num[0]).replace("\n", '')
             pack_num.close()      
         elif self.op == 'Linux':
-            pack_num = os.popen('cat requirements.txt | wc -l')         
+            pack_num = os.popen('cat' + ' ' + file_name + ' | wc -l')         
             output_num = pack_num.readlines()
             final_num = str(output_num[0]).replace("\\n", '').replace('\n', '')
             pack_num.close()
@@ -21,9 +21,9 @@ class filesdetails:
 
     @property
     def readinfo(self):
-        filename = self.filename
+        file_name = self.filename
         pack_information = []  
-        file = open(filename,'r') 
+        file = open(file_name)
         file_pack_information = file.readlines()
         for row in file_pack_information:  
             tmp_list = row.split(' ')
@@ -40,13 +40,12 @@ class filesdetails:
 
         except ImportError as e:
             raise e
-
+        file_name = self.filename
         os_result = platform.system()
-        result_pack = filesdetails(str(os_result),'requirements.txt')
+        result_pack = filesdetails(str(os_result),file_name)
         final_num = result_pack.counter
         pack_info = result_pack.readinfo
         numbers = int(final_num)
-        
         version_list = []
         j = 0
         while j < numbers:
@@ -68,9 +67,9 @@ class filesdetails:
             import re,string
         except ImportError as e:
             raise e 
-
+        file_name = self.filename
         os_result = platform.system()
-        result_pack = filesdetails(str(os_result),'requirements.txt')
+        result_pack = filesdetails(str(os_result),file_name)
         final_num = result_pack.counter
         pack_info = result_pack.readinfo
         numbers = int(final_num)
