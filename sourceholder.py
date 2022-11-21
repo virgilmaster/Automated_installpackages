@@ -1,10 +1,11 @@
 class mirrors:
-    def __init__(self,name):
-        self.name = name
+    def __init__(self,sourcenames):
+        self.sourcenames = sourcenames
 
     @property
     def mirrorspools(self):
         from jmespath import search
+        source_name = self.sourcenames
         mirrors_pools = {"aliyun": [
     {"domain": "mirrors.aliyun.com","link":"http://mirrors.aliyun.com/pypi/simple/"}],
     "ustc":[
@@ -14,6 +15,6 @@ class mirrors:
     "tsinghua":[
     {"domain":"pypi.tuna.tsinghua.edu.cn","link": "https://pypi.tuna.tsinghua.edu.cn/simple/"}]
     }
-        result = search(self.name,mirrors_pools)
+        result = search(source_name,mirrors_pools)
         return result
 
