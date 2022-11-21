@@ -1,7 +1,6 @@
 import time
-from multiprocessing import Process,Lock
 import threading
-from queue import Queue
+from threading import Lock
 from collector import spiders
 
 
@@ -25,6 +24,7 @@ class wizard():
                 final_uninstall = uninstall_pack[j]
                 butterfly = spiders(x,final_uninstall)
                 butterfly.downloader()
+                lock.release()
         except Exception as err:
             raise err
         else:
@@ -42,8 +42,7 @@ if __name__ == '__main__':
     caller = witch.spellmagic
     while j < loop_num:
         tk = threading.Thread(target=caller, args=(tasklist[j],))
-        #tk.setDaemon(True)
         tk.start()
-        #tk.join()
-        time.sleep(10)
+        lock.acquire()
         j += 1
+        
