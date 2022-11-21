@@ -36,9 +36,10 @@ class filesdetails:
         try:
             import platform
             from filehandler import filesdetails
+            import re,string
 
         except ImportError as e:
-            print(e)
+            raise e
 
         os_result = platform.system()
         result_pack = filesdetails(str(os_result),'requirements.txt')
@@ -46,11 +47,6 @@ class filesdetails:
         pack_info = result_pack.readinfo
         numbers = int(final_num)
         
-        try:
-            import re,string
-        except ImportWarning as e:
-            raise e
-
         version_list = []
         j = 0
         while j < numbers:
