@@ -32,18 +32,4 @@ class wizard():
             print('Resources download fail')
             time.sleep(1)
 
-
-# if __name__ == '__main__':
-#     tasklist = ['aliyun','tsinghua','ustc','douban']
-#     loop_num = len(tasklist)
-#     lock = Lock()
-#     j = 0
-#     file = 'requirements.txt'
-#     witch = wizard(file)
-#     caller = witch.spellmagic
-#     while j < loop_num:
-#         tk = threading.Thread(target=caller, args=(tasklist[j],))
-#         tk.start()
-#         lock.acquire()
-#         j += 1
         
