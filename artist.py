@@ -1,11 +1,8 @@
 import logging
-from main import platform
-from main import datetime
 from filehandler import filesdetails
 
 
 class logwriter():
-
     def __init__(self,op,packinfo):
         self.op = op
         self.packinfo = packinfo
