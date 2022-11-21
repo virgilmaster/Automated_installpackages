@@ -1,27 +1,26 @@
 class checker:
-    def __init__(self,opsys,filename):
-        self.opsys = opsys
+    def __init__(self,filename):
         self.filename = filename
 
     @property
     def versioncheck(self):
         try:
             from filehandler import filesdetails
-            import os,re,string
+            import os,re,string,platform
         except ImportError as err:
             raise err
 
-        os_result = self.opsys
+        os_result = platform.system()
         file_name = self.filename
 
-        fileresult = filesdetails(file_name,os_result)
+        fileresult = filesdetails(file_name)
         namelist = fileresult.namefilter
         versionlist = fileresult.versionfilter
         '''
         Self testing function:
         list of the packages name
         '''
-        files_read = filesdetails(str(os_result),'requirements.txt')
+        files_read = filesdetails(file_name)
         final_num = files_read.counter
         requirefiles = files_read.readinfo
         
@@ -38,7 +37,6 @@ class checker:
                 package_names = namelist[z]
                 final_version = versionlist[z]
                 pack_details = str(requirefiles[z]).split(',')[0].replace("['",'')
-                
                 '''   
                 God plz bless me,let it run.
                 '''
