@@ -28,7 +28,6 @@ class checker:
             uninstall_list = []
             z = 0
             while z < numbers:
-            #for x in range(numbers):
                 packages_installed = os.popen('pip list | findstr' + ' ' + namelist[z]) 
                 result_installed = packages_installed.readlines()     
                 packages_installed.close()                              
@@ -38,7 +37,7 @@ class checker:
                 final_version = versionlist[z]
                 
                 '''   
-                Plz God bless me,let it run.
+                God plz bless me,let it run.
                 '''
                 if final_installed != final_version:
                     print('Prepare to download the' + ' ' + package_names)
