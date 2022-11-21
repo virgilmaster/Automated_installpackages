@@ -1,4 +1,6 @@
+import time
 class timebar:
+
     def __init__(self,start,end):
         self.start = start 
         self.end = end
@@ -21,12 +23,7 @@ class timebar:
 
 
 if __name__ == '__main__':
-    try:
-        import time
-    except ImportError as e:
-        raise e
     begintime = time.perf_counter()
     endtime = time.perf_counter()
     runner = timebar(begintime,endtime)
     runner.counter_process()
-
