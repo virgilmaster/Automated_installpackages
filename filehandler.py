@@ -59,7 +59,7 @@ class filesdetails:
             package_names = package_result.split("==")[0]  
             package_version = package_result.split("==")[1]
             final_version = re.sub('[%s]' % re.escape(string.punctuation), '', package_version)
-            version_list.append(package_version)
+            version_list.append(final_version)
             j += 1
         return version_list
 
