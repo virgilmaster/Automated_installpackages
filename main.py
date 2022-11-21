@@ -48,7 +48,6 @@ if __name__ == "__main__":
     operation_system = platform.system()
     pack_information = files_read.readinfo
     check_system(operation_system)
-    
     handle_packages()
     launcher = logwriter(operation_system,pack_information)
     launcher.log_record()
