@@ -6,31 +6,30 @@ from collector import spiders
 
 
 class wizard():
-    def __init__(self,packagename):
-        self.packagename = packagename
+    def __init__(self,filename):
+        self.filename = filename
 
     def spellmagic(self,x):
         try:
             from collector import spiders
+            from inspector import checker
+            import os 
         except ImportError as error:
-            print(error,'Your module have been wrong plz download from github')
-        uninstall_pack = self.packagename
-        butterfly = spiders()
-        butterfly.downloader()
-
-
-
-        # try:
-        #     collect_name = spiders(x)
-        #     collect_name.downloader()
-
-        # except Exception as error:
-        #     print(error)
-
-        # else:
-        #     print("Failed to download the resource!!!")
-        #     time.sleep(5)
-
+            raise error
+        file_name = self.filename
+        os_result = os.system()
+        checker_pack = checker(os_result,file_name)
+        uninstall_pack = checker_pack.versioncheck
+        try:
+            for j in range(len(uninstall_pack)):
+                final_uninstall = uninstall_pack[j]
+                butterfly = spiders(x,final_uninstall)
+                butterfly.downloader()
+        except Exception as err:
+            raise err
+        else:
+            print('Resources download fail')
+            time.sleep(3)
 
 
 if __name__ == '__main__':
@@ -38,9 +37,11 @@ if __name__ == '__main__':
     loop_num = len(tasklist)
     lock = Lock()
     j = 0
-    witch = wizard()
+    file = 'requirements.txt'
+    witch = wizard(file)
+    caller = witch.spellmagic
     while j < loop_num:
-        tk = threading.Thread(target=, args=(tasklist[j],))
+        tk = threading.Thread(target=caller, args=(tasklist[j],))
         #tk.setDaemon(True)
         tk.start()
         #tk.join()
