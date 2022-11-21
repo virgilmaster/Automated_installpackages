@@ -13,11 +13,11 @@ class wizard():
         try:
             from collector import spiders
             from inspector import checker
-            import os 
+            import os,platform
         except ImportError as error:
             raise error
         file_name = self.filename
-        os_result = os.system()
+        os_result = platform.system()
         checker_pack = checker(os_result,file_name)
         uninstall_pack = checker_pack.versioncheck
         try:
