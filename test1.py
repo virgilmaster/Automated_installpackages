@@ -1,8 +1,8 @@
-# 文件处理器
+# handler
 from filehandler import filesdetails
-# 镜像大师
+# mirror master
 from sourceholder import mirrors
-# 采集器
+# downloader
 from collector import spiders
 import threading
 import time
@@ -10,17 +10,30 @@ from multiprocessing import Process,Lock
 from queue import Queue
 from inspector import checker
 
-# 测试文件处理器模块的功能
 files2 = filesdetails('Windows','requirements.txt')
 # print(files2.counter)
 # print(files2.readinfo)
-print(files2.versionfilter)
-print(files2.namefilter)
+# print(files2.versionfilter)
+# print(files2.namefilter)
+namelist = files2.namefilter
+versionlist = files2.versionfilter
+# print(namelist)
+# print(versionlist)
+
 # import platform
 # os = platform.system()
 # file = 'requirements.txt'
 # files3 = checker(str(os),file)
 # print(files3.versioncheck)
+
+from beesfly import wizard
+from inspector import checker
+import os
+os_result = os.system()
+file_name = 'requirements.txt'
+task1 =  checker(os_result,file_name)
+uninstall = task1.versioncheck
+print(uninstall)
 
 # ali_result = mirrors('aliyun')
 # print(ali_result.mirrorspools)
