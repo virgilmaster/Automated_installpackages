@@ -1,6 +1,6 @@
 # Author: Virgil.She
 # Date: 2022/11/21
-# Version: 0.2.22
+# Version: 0.2.23
 # Introduction: A fans of python programming language
 
 import os
@@ -9,12 +9,10 @@ import time,datetime
 import platform
 from filehandler import filesdetails
 from multiprocessing import Process,Lock
-from artist import logwriter
-from progessbar import timebar
 import threading
 from queue import Queue
-
-
+from artist import logwriter
+from progessbar import timebar
 
 def check_system(operation_system):
     print('Dear guests,begin to check your system: ')    
