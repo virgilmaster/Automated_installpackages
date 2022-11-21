@@ -1,6 +1,6 @@
 # Author: Virgil.She
 # Date: 2022/11/21
-# Version: 0.2.26
+# Version: 0.2.28
 # Introduction: A fans of python programming language
 
 import time,datetime
@@ -9,6 +9,8 @@ from filehandler import filesdetails
 import threading
 from artist import logwriter
 from progessbar import timebar
+from threading import Lock
+
 
 def check_system(operation_system):
     print('Dear guests,begin to check your system: ')    
@@ -20,25 +22,18 @@ def check_system(operation_system):
     time.sleep(1)
     print('Your system is: ' + operation_system + '...')
 
-def handle_packages():
+def handle_packages(x):
     try:
         from beesfly import wizard
         from inspector import checker
         from threading import Lock
     except ImportError as e:
         raise e
-    tasklist = ['aliyun','tsinghua','ustc','douban']
-    loop_num = len(tasklist)
-    lock = Lock()
-    j = 0
-    file = 'requirements.txt'
-    witch = wizard(file)
+
+    witch = wizard(x)
     caller = witch.spellmagic
-    while j < loop_num:
-        tk = threading.Thread(target=caller, args=(tasklist[j],))
-        tk.start()
-        lock.acquire()
-        j += 1
+    lock = Lock()
+
 
 if __name__ == "__main__":
     start_counter = time.perf_counter()
@@ -48,7 +43,16 @@ if __name__ == "__main__":
     operation_system = platform.system()
     pack_information = files_read.readinfo
     check_system(operation_system)
-    handle_packages()
+    tasklist = ['aliyun','tsinghua','ustc','douban']
+    loop_num = len(tasklist)
+    lock = Lock()
+    j = 0
+    file = 'requirements.txt'
+    while j < loop_num:
+        tk = threading.Thread(target=handle_packages, args=(tasklist[j],))
+        tk.start()
+        lock.acquire()
+        j += 1
     launcher = logwriter(operation_system,pack_information)
     launcher.log_record()
     print("End time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
