@@ -3,16 +3,40 @@ This is a test function files.
 It shows how i learn the python programming step by step.
 '''
 # handler
+import platform
+from artist import logwriter
 from filehandler import filesdetails
 # mirror master
 from sourceholder import mirrors
 # downloader
 from collector import spiders
 import threading
-import time
+import time,datetime
 from multiprocessing import Process,Lock
 from queue import Queue
 from inspector import checker
+from main import runner
+from progessbar import timebar
+
+# Test main
+start_counter = time.perf_counter()
+filename = 'requirements.txt'
+osys = platform.system()
+run = runner(osys,filename)
+run.check_system()
+print("Begin time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+files_read = filesdetails(filename)
+pack_information = files_read.readinfo
+launcher = logwriter(pack_information)
+launcher.log_record()
+# run.handle_packages()
+end_counter = time.perf_counter()
+runtime = timebar(start_counter, end_counter)
+runtime.counter_process()
+
+
+
+
 
 # test filehandler
 # files2 = filesdetails('requirements.txt')
@@ -36,9 +60,9 @@ from inspector import checker
 # test inspector
 # import platform
 # os = platform.system()
-file = 'requirements.txt'
-files3 = checker(file)
-print(files3.versioncheck)
+# file = 'requirements.txt'
+# files3 = checker(file)
+# files3.versioncheck
 
 # from beesfly import wizard
 # from inspector import checker
