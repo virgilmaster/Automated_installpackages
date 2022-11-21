@@ -3,18 +3,17 @@ from filehandler import filesdetails
 
 
 class logwriter():
-    def __init__(self,op,packinfo):
-        self.op = op
+    def __init__(self,packinfo):
         self.packinfo = packinfo
 
 
     def log_record(self):
-        op_sys = self.op
-        pack_info = self.packinfo
         try:
-            import os,datetime
+            import os,datetime,platform
         except ImportError as e:
-            print(e)
+            raise e
+        op_sys = platform.system()
+        pack_info = self.packinfo
         if op_sys == "Windows":
             username = os.getlogin()
             path_result = os.getcwd()
