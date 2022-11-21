@@ -18,7 +18,7 @@ class checker:
         namelist = fileresult.namefilter
         versionlist = fileresult.versionfilter
         '''
-        Test function:
+        Self testing function:
         list of the packages name
         '''
         files_read = filesdetails(str(os_result),'requirements.txt')
@@ -44,7 +44,6 @@ class checker:
                 '''
                 if final_installed != final_version:
                     print('Prepare to download the' + ' ' + package_names)
-                    #uninstall_list.append(package_names)
                     uninstall_list.append(pack_details)
                     
                     print('{:>^89}'.format(">")) 
