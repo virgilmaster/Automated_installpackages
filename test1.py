@@ -1,3 +1,7 @@
+'''
+This is a test function files.
+It shows how i learn the python programming step by step.
+'''
 # handler
 from filehandler import filesdetails
 # mirror master
