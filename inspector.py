@@ -65,12 +65,13 @@ class checker:
                 final_installed = (re.sub('[%s]' % re.escape(string.punctuation), '', installed_version)).replace("n","")
                 package_names = namelist[x]
                 final_version = versionlist[x]
+                pack_details = str(requirefiles[z]).split(',')[0].replace("['",'')
                 '''   
                 Plz bless me,let it run.
                 '''
                 if final_installed != final_version:
                     print('Prepare to download the' + ' ' + package_names)
-                    uninstall_list.append(package_names)
+                    uninstall_list.append(pack_details)
                     print('{:>^89}'.format(">")) 
                 elif final_installed == final_version:
                     print(package_names,'have no necessary to install')
