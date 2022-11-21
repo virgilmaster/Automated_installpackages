@@ -9,7 +9,6 @@ class checker:
             from filehandler import filesdetails
             import os,re,string
         except ImportError as err:
-            print(err)
             raise err
 
         os_result = self.opsys
