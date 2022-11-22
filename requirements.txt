@@ -6,7 +6,3 @@ watchdog==2.1.6
 PyQRCode==1.2.1
 lxml==4.8.0
 redis==4.3.4
-filestools
-watermarker
-filediff
-curl2py
