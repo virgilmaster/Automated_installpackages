@@ -33,14 +33,13 @@ class spiders:
             code_result = resp.status_code
 
             if code_result != 200:
-                print(source_names + ' ' + 'requests error')
+                print(source_names + ' ' + "'s requests error")
                 raise Exception(source_names + ' ' + 'can not download the resources')
 
             else:
-                print('Download the resources!!!')
+                print('Downloading the resources!')
                 time.sleep(5)
                 os.system("pip install " + uninstall_package + " -i " + link + " --trusted-host " + domain)
                 print('{:>^89}'.format(">"))
-
 
 
