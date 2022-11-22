@@ -14,6 +14,7 @@ class wizard():
         except ImportError as error:
             raise error
 
+        lock2 = Lk()
         lock = Lock()
         source_name = self.sourcename
         file_name = 'requirements.txt'
@@ -23,9 +24,9 @@ class wizard():
         try:
             # Try to loop out the packages that are not installed and send them to the instanced butterfly for downloading
             for j in range(len(uninstall_pack)):
-                lock.acquire()
                 final_uninstall = uninstall_pack[j]
-
+            #lock2.acquire()
+            lock.acquire()
             #Instantiate butterfly downloader
             #Multithread Start
             butterfly = spiders(source_name,final_uninstall)
