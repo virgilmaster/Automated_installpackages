@@ -1,6 +1,6 @@
 # Author: Virgil.She
-# Date: 2022/11/21
-# Version: 0.2.5
+# Date: 2022/11/22
+# Version: 1.0.0
 # Introduction: A fans of python programming language
 
 import time,datetime
@@ -44,21 +44,8 @@ class runner:
             witch.spellmagic
             j += 1
 
-if __name__ == "__main__":
-    start_counter = time.perf_counter()
-    file = 'requirements.txt'
-    os_result = platform.system()
-    check_system(os_result)
-    print("Begin time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-    files_read = filesdetails(file)
-    pack_information = files_read.readinfo
+
     # lock = Lock()
     # tk = threading.Thread(target=handle_packages, args=(,))
     # tk.start()
-    launcher = logwriter(pack_information)
-    launcher.log_record()
-    handle_packages()
-    print("End time is: " + str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-    end_counter = time.perf_counter()
-    runtime = timebar(start_counter,end_counter)
-    runtime.counter_process()
+
