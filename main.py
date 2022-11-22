@@ -19,10 +19,12 @@ class runner:
         os_result = self.opsys
         print('Dear guests,begin to check your system: ')
         counter1 = 0
+        
         while counter1 < 6:
             time.sleep(1)
             print('{:=^89}'.format("Checking"))
             counter1 += 1
+            
         time.sleep(1)
         print('Your system is: ' + os_result + '...')
 
@@ -33,19 +35,20 @@ class runner:
             from inspector import checker
             from threading import Lock
             import threading
+
         except ImportError as e:
             raise e
-        tasklist = ['aliyun', 'tsinghua', 'ustc', 'douban']
-        loop_num = len(tasklist)
+            
+        domainlist = ['aliyun', 'tsinghua', 'ustc', 'douban']
+        loop_num = len(domainlist)
+        
         j = 0
         while j < loop_num:
-            sourcenames = tasklist[j]
-            witch = wizard(sourcenames)
+            #sourcenames = domainlist[j]
+            witch = wizard(domainlist[j])
             witch.spellmagic
             j += 1
-
 
     # lock = Lock()
     # tk = threading.Thread(target=handle_packages, args=(,))
     # tk.start()
-
