@@ -10,5 +10,12 @@ setup(
     keywords="automation",
     url="https://github.com/virgilmaster/Automated_installpackages",
     packages=["Automated_installpackages","Automated_installpackages.Db"],
+
+    install_requires=[
+        'jmespath>=0.10.0 ',
+        'setuptools>=61.2.0 ',
+    ],
+    
+    zip_safe=False
 )
 
