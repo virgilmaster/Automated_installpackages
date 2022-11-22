@@ -1,5 +1,5 @@
 import logging
-from filehandler import filesdetails
+from functions.filehandler import filesdetails
 
 
 class logwriter():
@@ -74,6 +74,5 @@ class logwriter():
                 package_version = package_result.split("==")[1]
                 log_builder.info((str(username) + " try to download the " + package_names + " and the version is " + package_version + " at " + current_time))
                 j += 1
-
 
 

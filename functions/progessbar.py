@@ -27,3 +27,4 @@ if __name__ == '__main__':
     endtime = time.perf_counter()
     runner = timebar(begintime,endtime)
     runner.counter_process()
+

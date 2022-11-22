@@ -5,7 +5,7 @@ class checker:
     @property
     def versioncheck(self):
         try:
-            from filehandler import filesdetails
+            from functions.filehandler import filesdetails
             import os,re,string,platform
         except ImportError as err:
             raise err

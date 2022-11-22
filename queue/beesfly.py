@@ -5,8 +5,8 @@ class wizard():
     @property
     def spellmagic(self):
         try:
-            from collector import spiders
-            from inspector import checker
+            from download.collector import spiders
+            from functions.inspector import checker
             from threading import Lock
             from multiprocessing import Lock as Lk
             import os,platform,time
