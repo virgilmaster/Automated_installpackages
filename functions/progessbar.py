@@ -22,9 +22,4 @@ class timebar:
         print("\n" + "All the job is done,God bless me,lucky so much".center(scale // 2, "-"))
 
 
-if __name__ == '__main__':
-    begintime = time.perf_counter()
-    endtime = time.perf_counter()
-    runner = timebar(begintime,endtime)
-    runner.counter_process()
 
