@@ -1,6 +1,5 @@
 from setuptools import setup
 
-
 setup(
     name="Automated_installpackages",
     version="1.0",
@@ -9,7 +8,7 @@ setup(
     description=("This is a automation project"),
     keywords="automation",
     url="https://github.com/virgilmaster/Automated_installpackages",
-    packages=["Automated_installpackages","Automated_installpackages.Db"],
+    packages=["Automated_installpackages.Db","Automated_installpackages.download","Automated_installpackages.functions","Automated_installpackages.log","Automated_installpackages.queue","Automated_installpackages.source"],
 
     install_requires=[
         'jmespath>=0.10.0 ',
