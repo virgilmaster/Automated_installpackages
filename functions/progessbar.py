@@ -7,9 +7,9 @@ class timebar:
 
 
     def counter_process(self):
-        start = self.start
-        end = self.end
-        runtime = start - end
+        start_time = self.start
+        end_time = self.end
+        runtime = start_time - end_time
         scale = 100
         print('{:=^89}'.format("Line"))
         print("Start downloading the python packages".center(scale // 2, "-"))
